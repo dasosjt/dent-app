@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Router from 'next/router'
+import CSS from '../utils/css'
 
 
 class Index extends Component {
@@ -17,6 +18,7 @@ class Index extends Component {
 	render(){
 		return (
 			<div>
+				<CSS/>
 				Welcome to Dental App button
 				<button onClick = { this.handleClick }>
 					Login
