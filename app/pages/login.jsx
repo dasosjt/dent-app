@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { login } from '../utils/auth'
-import { 
+import {
+  Header, 
   Form,
   Grid,
   Image, 
@@ -48,13 +49,16 @@ class Login extends Component {
     return (
       <div>
         <CSS/>
-        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid 
+          textAlign='center' 
+          verticalAlign='middle' 
+          style={{ paddingTop: 20 }}>
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
               <Image src='static/icon.png' /> Iniciar Sesión
             </Header>
             <Form size='large' onSubmit={this.handleSubmit}>
-              <Segment stacked>
+              <Segment>
                 <Form.Input 
                   fluid 
                   icon='user' 
@@ -73,13 +77,13 @@ class Login extends Component {
                 </Form.Button>
               </Segment>
             </Form>
-                {this.state.error.length > 0 &&
-                
-                <Message 
-                  error={this.state.error.length > 0}
-                  header='Error'
-                  content={this.state.error}/>
-                }
+            {this.state.error.length > 0 &&
+            
+            <Message 
+              error
+              header='Error'
+              content={this.state.error}/>
+            }
           </Grid.Column>
         </Grid>
         <style jsx>{`

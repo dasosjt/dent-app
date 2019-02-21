@@ -16,7 +16,7 @@ export const login = async ({ username, url }) => { //username, password.. -> pa
     if (response.ok) {
       /*const { token } = await response.json()*/
       cookie.set('token', 'token', { expires: 1 })
-      Router.push('/profile')
+      Router.push('/main')
     } else {
       console.log('Login failed.')
       // https://github.com/developit/unfetch#caveats
@@ -40,13 +40,30 @@ export const logout = () => {
   Router.push('/login')
 }
 
-export function withAuthSync (WrappedComponent) {
-  return class extends Component {
+// Gets the display name of a JSX component for dev tools
+const getDisplayName = Component =>
+Component.displayName || Component.name || 'Component'
+
+export const withAuthSync = WrappedComponent =>
+  class extends Component {
+    static displayName = `withAuthSync(${getDisplayName(WrappedComponent)})`
+
+    static async getInitialProps (ctx) {
+      const token = auth(ctx)
+
+      const componentProps =
+        WrappedComponent.getInitialProps &&
+        (await WrappedComponent.getInitialProps(ctx))
+
+      return { ...componentProps, token }
+    }
+
     constructor (props) {
       super(props)
 
       this.syncLogout = this.syncLogout.bind(this)
     }
+
     componentDidMount () {
       window.addEventListener('storage', this.syncLogout)
     }
@@ -67,9 +84,8 @@ export function withAuthSync (WrappedComponent) {
       return <WrappedComponent {...this.props} />
     }
   }
-}
 
-export default ctx => {
+export const auth = ctx => {
   const { token } = nextCookie(ctx)
 
   if (ctx.req && !token) {

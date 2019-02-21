@@ -2,6 +2,7 @@ import { Component } from 'react'
 import Router from 'next/router'
 import {
 	Button,
+	Image,
 	Grid,
 	Message, 
 	Segment 
@@ -25,12 +26,18 @@ class Index extends Component {
 		return (
 			<div>
 				<CSS/>
-				<Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+				<Grid
+					textAlign='center' 
+					verticalAlign='middle'
+					style={{ paddingTop: 20 }}>
 					<Grid.Column style={{ maxWidth: 450 }}>
-						Welcome to Dental App button
-						<Button onClick={this.handleClick} primary>
-							Login
-						</Button>
+						<Segment>
+							<Image src='static/main-logo.jpg'/>
+							<br/>
+							<Button onClick={this.handleClick} color='teal'>
+								Iniciar Sesión
+							</Button>
+						</Segment>
 					</Grid.Column>
 				</Grid>
 			</div>
