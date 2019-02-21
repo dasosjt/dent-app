@@ -38,14 +38,13 @@ class Main extends Component {
   		<div>
         	<CSS/>
         	<HeaderLayout/>
-          <Grid>
+        	<Grid>
         		<Grid.Row columns={3}>
         			<Grid.Column width={2}/>
         			<Grid.Column width={12}>
         				<Segment>
         					<Grid columns='equal' container >
         						<Grid.Row>
-
 	        						<Grid.Column columns='equal'>
 	        						  <Card>
 									    <Image src='/static/icon.png' />
@@ -57,12 +56,8 @@ class Main extends Component {
 									    <Card.Content extra>
 									    	{/*<Button as={Link} href={`/chart?title=${props.title}`}>*/}
 									    	<Link href={'/chart?title=lucentes'}>
-									    		<a>Resumen</a>
+									    		<a>Mas Información</a>
 									    	</Link>
-
-									    	{/*<Button as={Link} href={'/chart?title=lucentes'}>
-									    		Resumen
-									    	</Button>*/}
 									    </Card.Content>
 									  </Card>
 									</Grid.Column>
@@ -75,9 +70,9 @@ class Main extends Component {
 									      <Card.Description>Neque porro quisquam est qui</Card.Description>
 									    </Card.Content>
 									    <Card.Content extra>
-									    	<Button>
-									    		Resumen
-									    	</Button>
+									    	<Link href={'/chart?title=opacas'}>
+									    		<a>Mas Información</a>
+									    	</Link>
 									    </Card.Content>
 									  </Card>
 									</Grid.Column>
@@ -90,9 +85,9 @@ class Main extends Component {
 									      <Card.Description>Neque porro quisquam est qui</Card.Description>
 									    </Card.Content>
 									    <Card.Content extra>
-									    	<Button>
-									    		Resumen
-									    	</Button>
+									    	<Link href={'/chart?title=mixtas'}>
+									    		<a>Mas Información</a>
+									    	</Link>
 									    </Card.Content>
 									  </Card>
 									</Grid.Column>
