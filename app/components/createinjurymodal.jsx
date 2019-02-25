@@ -4,8 +4,10 @@ import {
   Button,
   Modal,
   Input,
-  Select
+  Select,
+  Segment
 } from 'semantic-ui-react'
+import CSS from './css'
 
 export default class CreateInjuryModal extends Component {
 	constructor(props){
@@ -35,10 +37,12 @@ export default class CreateInjuryModal extends Component {
 	render(){
 		return (
 		  	<Modal
+		  		inverted
 		  		open={this.state.modalOpen}
 		  		onClose={this.handleClose} 
-		  		trigger={<Button color='teal' onClick={this.handleOpen}>Ingresar nueva lesión</Button>}>
-			    <Modal.Header>Nueva Lesión</Modal.Header>
+		  		trigger={<Button inverted color='purple' onClick={this.handleOpen}>Ingresar nueva lesión</Button>}>
+		  		<Segment inverted>
+			    <Modal.Header as='h1' style={{ margin: 2 }}><b>Nueva Lesión</b></Modal.Header>
 			    <Modal.Content>
 			    	<Modal.Description>
 			    	<Form onSubmit={this.handleSubmit}>
@@ -106,11 +110,47 @@ export default class CreateInjuryModal extends Component {
 				        	<Form.Field control={Input} name='size_2'/>
 				        	<label>pulg</label>
 				        </Form.Group>
-				        <Button color='teal' content='Enviar' type='submit'/>
-				        <Button content='Cancelar' onClick={this.handleClose}/>
+				        <Form.Group inline>
+					        <Form.Radio
+								label='Asociada'
+								name='op3'
+								value='a'/>
+							<Form.Radio
+								label='No asociado'
+								name='op3'
+								value='n'/>
+						</Form.Group>
+						<Form.Group inline>
+					        <Form.Radio
+								label='Con reabsorción'
+								name='op4'
+								value='c'/>
+							<Form.Radio
+								label='Sin reabsorción'
+								name='op4'
+								value='n'/>
+						</Form.Group>
+						<Form.Group inline>
+					        <Form.Radio
+								label='Con desplazamiento'
+								name='op5'
+								value='c'/>
+							<Form.Radio
+								label='Sin desplazamiento'
+								name='op5'
+								value='n'/>
+						</Form.Group>
+				        <Button inverted color='purple' content='Enviar' type='submit'/>
+				        <Button inverted color='grey' content='Cancelar' onClick={this.handleClose}/>
 				     </Form>
 			      </Modal.Description>
 			    </Modal.Content>
+			    </Segment>
+			    <style jsx>{`
+			    	b, label {
+			    		color: white;
+			    	}
+        		`}</style>
 			</Modal>
 		)
 	}

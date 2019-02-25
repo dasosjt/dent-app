@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React from 'react'
 import {
   Header,
   Card,
@@ -21,7 +21,7 @@ export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
 						height={65}/>
 				</Grid.Column>
 				<Grid.Column width={12}>
-					<Header as='h2' color='teal' textAlign='center'>
+					<Header as='h2' color='purple' textAlign='center'>
 		  				<Image src='static/icon.png' /> { headerTitle }
 					</Header>
 				</Grid.Column>

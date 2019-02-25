@@ -8,7 +8,7 @@ import {
   Message, 
   Segment 
 } from 'semantic-ui-react'
-import CSS from '../utils/css'
+import CSS from '../components/css'
 
 class Login extends Component {
   static getInitialProps ({ req }) {
@@ -49,45 +49,46 @@ class Login extends Component {
     return (
       <div>
         <CSS/>
-        <Grid 
+        <Grid
           textAlign='center' 
           verticalAlign='middle' 
-          style={{ paddingTop: 20 }}>
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='teal' textAlign='center'>
-              <Image src='static/icon.png' /> Iniciar Sesión
-            </Header>
-            <Form size='large' onSubmit={this.handleSubmit}>
-              <Segment>
-                <Form.Input 
-                  fluid 
-                  icon='user' 
-                  iconPosition='left' 
-                  placeholder='Usuario'
-                  onChange={this.userNameHandleChange}/>
-                <Form.Input
-                  fluid
-                  icon='lock'
-                  iconPosition='left'
-                  placeholder='Contraseña'
-                  type='password'
-                  onChange={this.passwordHandleChange}/>
-                <Form.Button color='teal' fluid size='large'>
-                  Enviar
-                </Form.Button>
+          style={{ paddingTop: 20 }}
+          columns={3}>
+            <Grid.Column size={2}/>
+            <Grid.Column size={12}>
+              <Header as='h2' color='purple' textAlign='center'>
+                <Image src='static/icon.png' /> Iniciar Sesión
+              </Header>
+              <Segment inverted color='purple'>
+                <Form size='large' onSubmit={this.handleSubmit}>
+                  <Form.Input 
+                    fluid 
+                    icon='user' 
+                    iconPosition='left' 
+                    placeholder='Usuario'
+                    onChange={this.userNameHandleChange}/>
+                  <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Contraseña'
+                    type='password'
+                    onChange={this.passwordHandleChange}/>
+                  <Form.Button inverted color='purple' fluid size='large'>
+                    Enviar
+                  </Form.Button>
+                </Form>
               </Segment>
-            </Form>
-            {this.state.error.length > 0 &&
-            
-            <Message 
-              error
-              header='Error'
-              content={this.state.error}/>
-            }
-          </Grid.Column>
+              {this.state.error.length > 0 &&
+              
+              <Message 
+                error
+                header='Error'
+                content={this.state.error}/>
+              }
+            </Grid.Column>
+            <Grid.Column size={2}/>
         </Grid>
-        <style jsx>{`
-        `}</style>
       </div>
     )
   }

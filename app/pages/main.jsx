@@ -11,7 +11,7 @@ import {
 import CreateInjuryModal from '../components/createinjurymodal'
 import HeaderLayout from '../components/headerlayout'
 import { withAuthSync } from '../utils/auth'
-import CSS from '../utils/css'
+import CSS from '../components/css'
 
 class Main extends Component {
   /*static async getInitialProps({ req, ctx }) {
@@ -42,11 +42,11 @@ class Main extends Component {
         		<Grid.Row columns={3}>
         			<Grid.Column width={2}/>
         			<Grid.Column width={12}>
-        				<Segment>
+        				<Segment inverted color='purple'>
         					<Grid columns='equal' container >
         						<Grid.Row>
 	        						<Grid.Column columns='equal'>
-	        						  <Card>
+	        						  <Card color='purple'>
 									    <Image src='/static/icon.png' />
 									    <Card.Content>
 									      <Card.Header>Lucentes</Card.Header>
@@ -54,7 +54,6 @@ class Main extends Component {
 									      <Card.Description>Neque porro quisquam est qui</Card.Description>
 									    </Card.Content>
 									    <Card.Content extra>
-									    	{/*<Button as={Link} href={`/chart?title=${props.title}`}>*/}
 									    	<Link href={'/chart?title=lucentes'}>
 									    		<a>Mas Información</a>
 									    	</Link>
@@ -91,7 +90,6 @@ class Main extends Component {
 									    </Card.Content>
 									  </Card>
 									</Grid.Column>
-
 								</Grid.Row>
 								<Grid.Row>
 									<Grid.Column width={12}/>
@@ -101,8 +99,8 @@ class Main extends Component {
         				</Segment>
         			</Grid.Column>
         			<Grid.Column width={2}/>
-        		</Grid.Row>
-        	</Grid>
+        		</Grid.Row>	        		
+	        </Grid>
         </div>
   	)
   }

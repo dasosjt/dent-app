@@ -7,7 +7,7 @@ import {
 	Message, 
 	Segment 
 } from 'semantic-ui-react'
-import CSS from '../utils/css'
+import CSS from '../components/css'
 
 
 class Index extends Component {
@@ -31,15 +31,15 @@ class Index extends Component {
 					verticalAlign='middle'
 					style={{ paddingTop: 20 }}>
 					<Grid.Column style={{ maxWidth: 450 }}>
-						<Segment>
+						<Segment color='purple' inverted>
 							<Image src='static/main-logo.jpg'/>
 							<br/>
-							<Button onClick={this.handleClick} color='teal'>
+							<Button onClick={this.handleClick} inverted color='purple'>
 								Iniciar Sesión
 							</Button>
 						</Segment>
 					</Grid.Column>
-				</Grid>
+				</Grid>	
 			</div>
 		)
 	}
