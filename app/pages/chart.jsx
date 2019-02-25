@@ -1,9 +1,19 @@
 import React from 'react'
 import { withRouter } from 'next/router'
-import { Segment, Grid, Icon, Table } from 'semantic-ui-react'
+import { Segment, Grid, Icon, Table, Tab, Dropdown } from 'semantic-ui-react'
 import HeaderLayout from '../components/headerlayout'
-import ExamplePie from '../components/examplepie'
+import FilterPie from '../components/filterpie'
 import CSS from '../components/css'
+
+const stateOptions01 = [ { key: 'AL', value: 'AL', text: 'Hombre' }, { key: 'AL', value: 'AL', text: 'Mujer' } ]
+
+const panes = [
+  { menuItem: 'Tab 1', render: () => <Tab.Pane> <FilterPie/> </Tab.Pane>},
+  { menuItem: 'Tab 2', render: () => <Tab.Pane> <FilterPie/> </Tab.Pane> },
+  { menuItem: 'Tab 3', render: () => <Tab.Pane> <FilterPie/> </Tab.Pane> },
+]
+
+const TabContainer = () => <Tab panes={panes} />
 
 export default withRouter((props) => {
 	const { title } =  props.router.query
@@ -17,49 +27,14 @@ export default withRouter((props) => {
 				<Grid.Column width={2}/>
         		<Grid.Column width={12}>
 					<Segment inverted color='purple'>
-					<Grid inline>
-						<Grid.Column width={6}>
-							<Table celled>
-							    <Table.Header>
-							      <Table.Row>
-							        <Table.HeaderCell>Name</Table.HeaderCell>
-							        <Table.HeaderCell>Status</Table.HeaderCell>
-							        <Table.HeaderCell>Notes</Table.HeaderCell>
-							      </Table.Row>
-							    </Table.Header>
-
-							    <Table.Body>
-							      <Table.Row>
-							        <Table.Cell>No Name Specified</Table.Cell>
-							        <Table.Cell>Unknown</Table.Cell>
-							        <Table.Cell negative>None</Table.Cell>
-							      </Table.Row>
-							      <Table.Row positive>
-							        <Table.Cell>Jimmy</Table.Cell>
-							        <Table.Cell>
-							          <Icon name='checkmark' />
-							          Approved
-							        </Table.Cell>
-							        <Table.Cell>None</Table.Cell>
-							      </Table.Row>
-							      <Table.Row>
-							        <Table.Cell>Jamie</Table.Cell>
-							        <Table.Cell>Unknown</Table.Cell>
-							        <Table.Cell positive>
-							          <Icon name='close' />
-							          Requires call
-							        </Table.Cell>
-							      </Table.Row>
-							      <Table.Row negative>
-							        <Table.Cell>Jill</Table.Cell>
-							        <Table.Cell>Unknown</Table.Cell>
-							        <Table.Cell>None</Table.Cell>
-							      </Table.Row>
-							    </Table.Body>
-							  </Table>
+						<Grid columns='equal'>
+							<Grid.Column>
+								<TabContainer/>
 							</Grid.Column>
 							<Grid.Column>
-								<ExamplePie style={{ minWidth: 600 }}/>
+								<Segment>
+									<Dropdown placeholder={stateOptions01[0].text} search selection options={stateOptions01} />
+								</Segment>
 							</Grid.Column>
 						</Grid>
 					</Segment>

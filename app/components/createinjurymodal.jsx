@@ -50,11 +50,6 @@ export default class CreateInjuryModal extends Component {
 				        	<Form.Field control={Input} label='Nombre' name='name'/>
 				        	<Form.Field control={Input} label='Apellido' name='lastname'/>
 				        </Form.Group>
-				        <Form.Group widths='equal'>	
-				        	<Form.Field control={Input} label='DPI' name='id'/>
-				        	<Form.Field control={Input} label='Correo' name='email'/>
-				        	<Form.Field control={Input} label='Número' name='number'/>
-				        </Form.Group>
 				        <Form.Group widths='equal'>
 				        	<Form.Field 
 					          	control={Select} 
