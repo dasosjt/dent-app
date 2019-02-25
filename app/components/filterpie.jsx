@@ -15,7 +15,7 @@ export default class FilterPie extends PureComponent {
 
 
     return (
-      <ResponsiveContainer width={300} height={250}>
+      <ResponsiveContainer width={650} height={400}>
         <PieChart margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
           <Pie dataKey="value" isAnimationActive={false} data={data01} fill="#8884d8" label/>
           <Legend verticalAlign='bottom'/>
