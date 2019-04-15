@@ -22,7 +22,7 @@ export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
 				</Grid.Column>
 				<Grid.Column width={12}>
 					<Header as='h2' color='purple' textAlign='center'>
-		  				<Image src='static/icon.png' /> { headerTitle }
+						{ headerTitle }
 					</Header>
 				</Grid.Column>
 				<Grid.Column width={2}>

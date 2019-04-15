@@ -1,28 +1,25 @@
-import { PureComponent } from 'react'
+import React from 'react'
 import {
-  PieChart, Pie, Legend, Tooltip, Line, ResponsiveContainer
+  PieChart,
+  Pie, 
+  Legend, 
+  Tooltip, 
+  ResponsiveContainer
 } from 'recharts'
 
-const data01 = [
-  { name: 'Única', value: 400 }, { name: 'Multiple', value: 300 }
-]
-
-const label01 = 'Ejemplo'
-
-export default class FilterPie extends PureComponent { 
-  render() {
-    const { label = label01, data = data01 } = this.props
-
-
-    return (
-      <ResponsiveContainer width={650} height={400}>
-        <PieChart margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-          <Pie dataKey="value" isAnimationActive={false} data={data01} fill="#8884d8" label/>
-          <Legend verticalAlign='bottom'/>
-          <Tooltip />
-          <Line name={label} position='top'/>
-        </PieChart>
-      </ResponsiveContainer>
-    );
-  }
-}
+export default props => (
+  <div style={{ width: '100%', height: 500 }}>
+    <ResponsiveContainer>
+      <PieChart>
+        <Pie 
+          dataKey="value" 
+          isAnimationActive={false} 
+          data={props.data} 
+          fill="#8884d8" 
+          label/>
+        <Legend verticalAlign='bottom'/>
+        <Tooltip />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+)

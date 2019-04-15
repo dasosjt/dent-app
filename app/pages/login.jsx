@@ -57,7 +57,7 @@ class Login extends Component {
             <Grid.Column size={2}/>
             <Grid.Column size={12}>
               <Header as='h2' color='purple' textAlign='center'>
-                <Image src='static/icon.png' /> Iniciar Sesión
+                Iniciar Sesión
               </Header>
               <Segment inverted color='purple'>
                 <Form size='large' onSubmit={this.handleSubmit}>

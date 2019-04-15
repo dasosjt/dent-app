@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'next/router'
 import { 
 	Segment, 
@@ -9,38 +9,91 @@ import {
 	Dropdown, 
 	Input, 
 	Divider, 
-	Header
+	Header,
+	Menu
 } from 'semantic-ui-react'
 import HeaderLayout from '../components/headerlayout'
 import FilterPie from '../components/filterpie'
 import CSS from '../components/css'
 
-const stateOptions01 = [ { key: 'TD', value: 'TD', text: 'Todos' }, { key: 'AL', value: 'AL', text: 'Hombre' }, { key: 'AL', value: 'AL', text: 'Mujer' } ]
-const stateOptions02 = [ { key: 'TD', value: 'TD', text: 'Todos' }, { key: 'AL', value: 'AL', text: 'Asociada' }, { key: 'AL', value: 'AL', text: 'No asociada' } ]
-const stateOptions03 = [ { key: 'TD', value: 'TD', text: 'Todos' }, { key: 'AL', value: 'AL', text: 'Reabsorcion' }, { key: 'AL', value: 'AL', text: 'No reabsorcion' } ]
-const stateOptions04 = [ { key: 'TD', value: 'TD', text: 'Todos' }, { key: 'AL', value: 'AL', text: 'Desplazamiento' }, { key: 'AL', value: 'AL', text: 'No desplazamiento' } ]
-
-/*asociada, reabsorcion y desplazamiento*/
-
-const panes = [
-  { menuItem: 'Tab 1', render: () => <Tab.Pane> <FilterPie/> </Tab.Pane>},
-  { menuItem: 'Tab 2', render: () => <Tab.Pane> <FilterPie/> </Tab.Pane> },
-  { menuItem: 'Tab 3', render: () => <Tab.Pane> <FilterPie/> </Tab.Pane> },
+const menuItems = [
+	{ 
+		title: 'Edad',
+		filter: 'age'
+	},
+	{
+		title: 'Género',
+		filter: 'gender'
+	},
+	{ 
+		title: 'Única-Multiple',
+		filter: 'op1'
+	},
+	{ 
+		title: 'Unilocular-Multilocular',
+		filter: 'op2'
+	},
+	{
+	    title: 'Formas',
+	    filter: 'form'
+	},
+	{
+		title: 'Bordes',
+		filter: 'op3'
+	},
+	{
+		title: 'Localización',
+		filter: 'location'
+	},
+	{
+		title: 'Asociada',
+		filter: 'op4'
+	},
+	{
+		title: 'Asociada Super Númeraria',
+		filter: 'op4_super'
+	},
+	{
+		title: 'Reabsorción',
+		filter: 'op5'
+	},
+	{
+		title: 'Reabsorción Tipo',
+		filter: 'op5_type'
+	},
+	{
+		title: 'Desplazamiento',
+		filter: 'op6'
+	},
+	{
+		title: 'Desplazamiento Super Númeraria',
+		filter: 'op6_super'
+	},
+	{
+		title: 'Tipo de Registro',
+		filter: 'register'
+	},
 ]
-
-const TabContainer = () => (
-	<Tab 
-		menu={{ 
-			color: 'white',
-			inverted: true, 
-			secondary: true, 
-			pointing: true 
-		}} 
-		panes={panes}/>
-)
 
 export default withRouter((props) => {
 	const { title } =  props.router.query
+	const [filter, setFilter] = useState(menuItems[0].filter)
+	const [data, setData] = useState([])
+
+	const getData = () => fetch(`http://127.0.0.1:5000/injury/${title}/${filter}`)
+		.then(response => response.json())
+		.then(data => {
+			setData(data)
+		})
+
+	useEffect(() => {
+    	getData()
+  	}, [filter])
+
+	const handleItemClick = async (e, { name }) => {
+		setFilter(name)
+	}
+
 	return (
 		<div>	
 			<CSS/>
@@ -49,45 +102,38 @@ export default withRouter((props) => {
 			<Grid>
 				<Grid.Column width={2}/>
         		<Grid.Column width={12}>
-					<Segment inverted color='purple'>
-						<Grid columns={2}>
-							<Grid.Column width={11}>
-								<TabContainer/>
-							</Grid.Column>
-							<Grid.Column width={5}>
-								<Segment style={{ margin: 5 }}>
-									<Header as='h4'> Filtrar por </Header>
-									<Header as='h5' color='grey'> Género </Header>
-									<Dropdown 
-										placeholder={stateOptions01.length > 0 ? stateOptions01[0].text : 'null'}
-										search
-										selection 
-										options={stateOptions01}/>
-									<Header as='h5' color='grey'> Edad </Header>
-									<Input placeholder='min' type='number' min={0} max={100}/>
-									<Input placeholder='max' type='number' min={0} max={100}/>
-									<Header as='h5' color='grey'> X </Header>
-									<Dropdown 
-										placeholder={stateOptions02.length > 0 ? stateOptions02[0].text : 'null'}
-										search
-										selection 
-										options={stateOptions02}/>
-									<Header as='h5' color='grey'> Y </Header>
-									<Dropdown 
-										placeholder={stateOptions03.length > 0 ? stateOptions03[0].text : 'null'}
-										search
-										selection 
-										options={stateOptions03}/>
-									<Header as='h5' color='grey'> Z </Header>
-									<Dropdown 
-										placeholder={stateOptions04.length > 0 ? stateOptions04[0].text : 'null'}
-										search
-										selection 
-										options={stateOptions04}/>	
-								</Segment>
-							</Grid.Column>
-						</Grid>
-					</Segment>
+        			<Grid>
+
+						<Grid.Column width={4}>
+							<Segment inverted color='purple'>
+							<Menu pointing secondary vertical inverted>
+							{
+								menuItems && menuItems.length > 0 ?
+								menuItems.map( (item, key) => (
+									<Menu.Item 
+										key={key}
+										name={item.filter}
+										active={filter === item.filter} 
+										onClick={handleItemClick}>
+										{item.title}
+	        						</Menu.Item>
+	        						)
+	        					) : null
+							}
+							</Menu>
+							</Segment>
+						</Grid.Column>
+
+						<Grid.Column stretched width={12}> 
+							<Segment inverted color='purple'>
+								<Header as='h2'>
+									{title.charAt(0).toUpperCase() + title.slice(1)}
+								</Header>
+								<FilterPie data={data}/>
+							</Segment>
+						</Grid.Column> 
+
+					</Grid>
 				</Grid.Column>
 				<Grid.Column width={2}/>
 			</Grid>
