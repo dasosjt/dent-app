@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from json import loads, dumps
 import database
-from models import User, Injury
+import models as m
 from sqlalchemy import func
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def hello_world():
 def get_injuries():
 	injuries = [
 		injury.as_dict() 
-		for injury in database.db_session().query(Injury).all()[:5]
+		for injury in database.db_session().query(m.Injury).all()[:5]
 	]
 
 	return jsonify(injuries)
@@ -31,18 +31,37 @@ def get_injuries():
 @app.route('/injury', methods=['POST'])
 def create_injury():
 	data = request.get_json()
-	del data['modalOpen']
+	location_data = data['locations']
 
-	injury = Injury(**data)
+	injury = m.Injury(**{ 
+		k: data[k] 
+		for k in m.Mixin.default_attr(m.Injury)
+		if k in data
+	})
 
 	database.db_session.add(injury)
+	database.db_session.flush()
+
+	for _location in location_data:
+		attr_dict = {
+			k: _location[k]
+			for k in m.Mixin.default_attr(m.InjuryLocation)
+			if k in _location
+		}
+
+		attr_dict['injury_id'] = injury.injury_id
+
+		location = m.InjuryLocation(**attr_dict)
+
+		database.db_session.add(location)
+
 	database.db_session.commit()
 
 	return 'True'
 
 @app.route('/injury/<id>', methods=['DELETE'])
 def delete_injury_by_id(id):
-	injury = database.db_session.query(Injury).get(id)
+	injury = database.db_session.query(m.Injury).get(id)
 
 	if not injury:
 		return 'False'
@@ -61,8 +80,11 @@ def filter_injury(type, filter):
 	
 	if filter:
 		query = (
-			query.query(getattr(Injury, filter), func.count(Injury.id))
-			.group_by(getattr(Injury, filter))
+			query.query(
+				getattr(m.Injury, filter), 
+				func.count(m.Injury.injury_id)
+			)
+			.group_by(getattr(m.Injury, filter))
 		)
 
 	type_mapper = {
@@ -125,18 +147,18 @@ def filter_injury(type, filter):
 		'op7': {
 			'c': 'Con Expansión de Corticales',
 			'n': 'Sin Expansión de Corticales'
-		}
+		},
 	}
 
 	type_filter = type_mapper.get(type, None)
 
 	if type_filter:
-		query = query.filter(Injury._type == type_filter)
+		query = query.filter(m.Injury._type == type_filter)
 
 	print(query.all())
 
 	results = []
-	for result in query.all():
+	for result in query.all().iter():
 		filter_name = filter_mapper.get(filter)
 
 		if isinstance(filter_name, dict):

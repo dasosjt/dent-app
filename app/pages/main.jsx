@@ -114,9 +114,9 @@ const Main = props => {
 													verticalAlign='middle'>
 													{
 														injuries.map(injury => (
-															<List.Item key={injury.id}>
+															<List.Item key={injury.injury_id}>
 																<List.Content floated='right'>
-															    	<Button onClick={() => deleteInjury(injury.id)}>
+															    	<Button onClick={() => deleteInjury(injury.injury_id)}>
 															    		{'Eliminar'}
 															    	</Button>
 															    </List.Content>

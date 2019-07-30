@@ -15,13 +15,21 @@ const DEFAULT_LOCATION = {
 	'position': ''
 }
 
+const AE_ORO = 'ae-oro'
+const AE_NASO = 'ae-naso'
+const AE_HIPO = 'ae-hipo'
+
+
 export default class CreateInjuryModal extends Component {
 	constructor(props){
 		super(props)
 
 		this.state = {
 			'modalOpen': false,
-			'locations': [{ ...DEFAULT_LOCATION }]
+			'locations': [{ ...DEFAULT_LOCATION }],
+			'op4_super': null,
+			'op5_type': null,
+			'op6_super': null
 		}
 
 		this.handleOpen = this.handleOpen.bind(this)
@@ -45,7 +53,13 @@ export default class CreateInjuryModal extends Component {
 	handleLocationChange = (e, { name, value }) => {
 		if(name <= this.state.locations.length - 1){
 			let locations = this.state.locations
+
 			locations[name]['location'] = value
+			locations[name]['is_aerial'] = value in [
+				AE_ORO, 
+				AE_NASO, 
+				AE_HIPO
+			]
 
 			this.setState({ 'locations':  locations })
 		}
@@ -344,6 +358,21 @@ export default class CreateInjuryModal extends Component {
 												key: 'du-espacio' + index,
 												text: 'Espacio',
 												value: 'du-espacio' 
+											},
+											{
+												key: 'ae-oro' + index,
+												text: 'Orofaringe',
+												value: AE_ORO 
+											},
+											{
+												key: 'ae-naso' + index,
+												text: 'Nasofaringe',
+												value: AE_NASO
+											},
+											{
+												key: 'ae-hipo' + index,
+												text: 'Hipofaringe',
+												value: AE_HIPO 
 											},
 										]}
 										onChange={this.handleLocationChange}/>
