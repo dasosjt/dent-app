@@ -49,12 +49,18 @@ class Injury(Base, Mixin):
 
     not_default_attr = [ 'injury_id' ]
 
+    location = relationship(
+        'InjuryLocation',
+        backref='injury',
+        lazy=True
+    )
+
 class InjuryLocation(Base, Mixin):
     __tablename__ = 'injury_location'
     injury_location_id = Column(Integer, primary_key=True)
     location = Column(String, nullable=False)
     position = Column(Integer, nullable=False)
-    is_aerial = Column(Boolean, nullable=True)
+    _type = Column(Integer, nullable=False)
 
     injury_id = Column(Integer, ForeignKey('injury.injury_id'))
 

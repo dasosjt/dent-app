@@ -5,6 +5,8 @@ import database
 import models as m
 from sqlalchemy import func
 
+import sqlalchemy
+
 app = Flask(__name__)
 CORS(app)
 
@@ -78,7 +80,31 @@ def filter_injury(type, filter):
 
 	query = database.db_session()
 	
-	if filter:
+	if filter and filter == 'location_sub':
+		query = (
+			query.query(
+				m.InjuryLocation.location, 
+				func.count(m.InjuryLocation.location)
+			)
+			.join(
+				m.Injury,
+				m.Injury.injury_id == m.InjuryLocation.injury_id
+			)
+			.group_by(m.InjuryLocation.location)
+		)
+	elif filter and filter == 'location_div':
+		query = (
+			query.query(
+				m.InjuryLocation._type, 
+				func.count(m.InjuryLocation._type)
+			)
+			.join(
+				m.Injury,
+				m.Injury.injury_id == m.InjuryLocation.injury_id
+			)
+			.group_by(m.InjuryLocation._type)
+		)
+	elif filter:
 		query = (
 			query.query(
 				getattr(m.Injury, filter), 
@@ -148,6 +174,11 @@ def filter_injury(type, filter):
 			'c': 'Con Expansión de Corticales',
 			'n': 'Sin Expansión de Corticales'
 		},
+		'location_div': {
+			0: 'Blando',
+			1: 'Duro',
+			2: 'Aeréo'
+		}
 	}
 
 	type_filter = type_mapper.get(type, None)
@@ -155,13 +186,16 @@ def filter_injury(type, filter):
 	if type_filter:
 		query = query.filter(m.Injury._type == type_filter)
 
+	print(query)
+
 	print(query.all())
 
 	results = []
-	for result in query.all().iter():
+	for result in query.all():
 		filter_name = filter_mapper.get(filter)
 
 		if isinstance(filter_name, dict):
+			print(result[0])
 			name = filter_name.get(result[0])
 		else:
 			name = result[0]

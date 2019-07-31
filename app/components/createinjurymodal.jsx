@@ -15,9 +15,9 @@ const DEFAULT_LOCATION = {
 	'position': ''
 }
 
-const AE_ORO = 'ae-oro'
-const AE_NASO = 'ae-naso'
-const AE_HIPO = 'ae-hipo'
+const BL = 0
+const DU = 1
+const AE = 2
 
 
 export default class CreateInjuryModal extends Component {
@@ -54,12 +54,8 @@ export default class CreateInjuryModal extends Component {
 		if(name <= this.state.locations.length - 1){
 			let locations = this.state.locations
 
-			locations[name]['location'] = value
-			locations[name]['is_aerial'] = value in [
-				AE_ORO, 
-				AE_NASO, 
-				AE_HIPO
-			]
+			locations[name]['location'] = value['name']
+			locations[name]['_type'] = value['type']
 
 			this.setState({ 'locations':  locations })
 		}
@@ -277,102 +273,162 @@ export default class CreateInjuryModal extends Component {
 											{ 
 												key: 'bl-ligamento' + index,
 												text: 'Ligamento Estilohioide',
-												value: 'bl-ligamento' 
+												value: {
+													'name': 'Ligamento Estilohioide',
+													'type': BL
+												}
 											},
 											{ 
 												key: 'bl-lengua' + index,
 												text: 'Lengua',
-												value: 'bl-lengua'
+												value: {
+													'name': 'Lengua',
+													'type': BL
+												}
 											},
 											{ 
 												key: 'bl-glandula' + index, 
 												text: 'Glandula Tiroides', 
-												value: 'bl-glandula' 
+												value: {
+													'name': 'Glandula Tiroides',
+													'type': BL
+												}
 											},
 											{ 
 												key: 'bl-amigdala' + index, 
 												text: 'Amigdala',
-												value: 'bl-amigdala' 
+												value: {
+													'name': 'Amigdala',
+													'type': BL
+												}
 											},
 											{ 
 												key: 'bl-nariz' + index,
 												text: 'Nariz',
-												value: 'bl-nariz' 
+												value: {
+													'name': 'Nariz',
+													'type': BL
+												}
 											},
 											{
 												key: 'du-huesotemp' + index,
 												text: 'Hueso Temporal',
-												value: 'du-huesotemp' 
+												value: {
+													'name': 'Hueso Temporal',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-huesocigo' + index,
 												text: 'Hueso Cigomatico',
-												value: 'du-huesocigo' 
+												value: {
+													'name': 'Hueso Cigomatico',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-fosanasal' + index,
 												text: 'Fosa Nasal',
-												value: 'du-fosanasal' 
+												value: {
+													'name': 'Fosa Nasal',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-huesohio' + index,
 												text: 'Hueso Hioides',
-												value: 'du-huesohio' 
+												value: {
+													'name': 'Hueso Hioides',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-vertebras' + index,
 												text: 'Vertebras Cervicales',
-												value: 'du-vertebras' 
+												value: {
+													'name': 'Vertebras Cervicales',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-maxilar' + index,
 												text: 'Maxilar',
-												value: 'du-maxilar' 
+												value: {
+													'name': 'Maxilar',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-mandibula' + index,
 												text: 'Mandibula',
-												value: 'du-mandibula' 
+												value: {
+													'name': 'Mandibula',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-paredpos' + index,
 												text: 'Pared Posterior',
-												value: 'du-paredpos' 
+												value: {
+													'name': 'Pared Posterior',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-paredant' + index,
 												text: 'Pared Anterior',
-												value: 'du-paredant' 
+												value: {
+													'name': 'Pared Anterior',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-techo' + index,
 												text: 'Techo',
-												value: 'du-techo' 
+												value: {
+													'name': 'Techo',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-piso' + index,
 												text: 'Piso',
-												value: 'du-piso' 
+												value: {
+													'name': 'Piso',
+													'type': DU
+												}
 											},
 											{
 												key: 'du-espacio' + index,
 												text: 'Espacio',
-												value: 'du-espacio' 
+												value: {
+													'name': 'Espacio',
+													'type': DU
+												}
 											},
 											{
 												key: 'ae-oro' + index,
 												text: 'Orofaringe',
-												value: AE_ORO 
+												value: {
+													'name': 'Orofaringe',
+													'type': AE
+												}
 											},
 											{
 												key: 'ae-naso' + index,
 												text: 'Nasofaringe',
-												value: AE_NASO
+												value: {
+													'name': 'Nasofaringe',
+													'type': AE
+												}
 											},
 											{
 												key: 'ae-hipo' + index,
 												text: 'Hipofaringe',
-												value: AE_HIPO 
+												value: {
+													'name': 'Hipofaringe',
+													'type': AE
+												}
 											},
 										]}
 										onChange={this.handleLocationChange}/>

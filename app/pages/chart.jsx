@@ -43,7 +43,11 @@ const menuItems = [
 	},
 	{
 		title: 'Localización',
-		filter: 'location'
+		filter: 'location_sub'
+	},
+	{
+		title: 'Tipo Localización',
+		filter: 'location_div'
 	},
 	{
 		title: 'Asociada',
@@ -72,7 +76,7 @@ const menuItems = [
 	{
 		title: 'Tipo de Registro',
 		filter: 'register'
-	},
+	}
 ]
 
 export default withRouter((props) => {
