@@ -1,4 +1,5 @@
 import { Component, useState, useEffect } from 'react'
+import { logout } from '../utils/auth'
 import Link from 'next/link'
 import {
   Header,
@@ -43,6 +44,8 @@ const Main = props => {
   		}[register]
   	)
 
+  	const onLogout = () => logout()
+
   	return (
   		<div>
         	<CSS/>
@@ -68,8 +71,8 @@ const Main = props => {
 									</Grid.Column>
 									<Grid.Column columns='equal'>
 									  <Card>
-									    <Card.Content>
-									      <Card.Header>Opacas</Card.Header>
+									    <Card.Content style={{ 'backgroundColor': 'black' }}>
+									      <Card.Header  style={{ 'color': 'white' }}>Opacas</Card.Header>
 									    </Card.Content>
 									    <Card.Content extra>
 									    	<Link href={'/chart?title=opacas'}>
@@ -80,8 +83,8 @@ const Main = props => {
 									</Grid.Column>
 									<Grid.Column columns='equal'>
 									  <Card>
-									    <Card.Content>
-									      <Card.Header>Mixtas</Card.Header>
+									    <Card.Content style={{ 'backgroundColor': 'grey' }}>
+									      <Card.Header  style={{ 'color': 'white' }}>Mixtas</Card.Header>
 									    </Card.Content>
 									    <Card.Content extra>
 									    	<Link href={'/chart?title=mixtas'}>
@@ -92,8 +95,8 @@ const Main = props => {
 									</Grid.Column>
 									<Grid.Column columns='equal'>
 	        						  <Card color='purple'>
-									    <Card.Content>
-									      <Card.Header>Todos</Card.Header>
+									    <Card.Content style={{ 'backgroundColor': 'purple' }}>
+									      <Card.Header  style={{ 'color': 'white' }}>Todas</Card.Header>
 									    </Card.Content>
 									    <Card.Content extra>
 									    	<Link href={'/chart?title=todas'}>
@@ -138,8 +141,9 @@ const Main = props => {
 										null 
 								}
 								<Grid.Row>
-									<Grid.Column width={12}/>
+									<Grid.Column width={10}/>
 									<CreateInjuryModal callback={getInjuries}/>
+									<Button onClick={onLogout}> Cerrar Sesion </Button>
 								</Grid.Row>
         					</Grid>
         				</Segment>

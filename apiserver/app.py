@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from json import loads, dumps
@@ -18,6 +20,19 @@ def shutdown_session(exception=None):
 def hello_world():
 	return 'Hello, World!'
 
+@app.route('/login', methods=['POST'])
+def login():
+	_json = request.get_json()
+	username = _json.get('username')
+	password = _json.get('password')
+
+	print(username)
+	print(password)
+
+	if username and password and username == 'admin' and password == 'admin':
+		return 'True', 200
+
+	return 'False', 201
 
 @app.route('/injury', methods=['GET'])
 def get_injuries():

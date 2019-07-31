@@ -8,6 +8,7 @@ import {
 	Segment 
 } from 'semantic-ui-react'
 import CSS from '../components/css'
+import { withAuthSync } from '../utils/auth'
 
 
 class Index extends Component {
@@ -45,4 +46,4 @@ class Index extends Component {
 	}
 }
 
-export default Index
+export default withAuthSync(Index)
