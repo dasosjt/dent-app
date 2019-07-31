@@ -12,10 +12,12 @@ import CSS from '../components/css'
 
 class Login extends Component {
   static getInitialProps ({ req }) {
-    const apiUrl = process.browser
+    /*const apiUrl = process.browser
       ? `https://${window.location.host}/api/login.js`
-      : `https://localhost/api/login.js`
+      : `https://localhost/api/login.js`*/
 
+
+    const apiUrl = 'http://127.0.0.1:5000/login'
     return { apiUrl }
   }
 
@@ -39,8 +41,9 @@ class Login extends Component {
   async handleSubmit (event) {
     event.preventDefault()
     const username = this.state.username
+    const password = this.state.password
     const url = this.props.apiUrl
-    login({ username, url }).catch(() =>
+    login({ username, password, url }).catch(() =>
       this.setState({ error: 'Inicio de sesión incorrecto' })
     )
   }

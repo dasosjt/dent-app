@@ -15,6 +15,7 @@ import {
 import HeaderLayout from '../components/headerlayout'
 import FilterPie from '../components/filterpie'
 import CSS from '../components/css'
+import { withAuthSync } from '../utils/auth'
 
 const menuItems = [
 	{ 
@@ -76,10 +77,22 @@ const menuItems = [
 	{
 		title: 'Tipo de Registro',
 		filter: 'register'
-	}
+	},
+	{
+		title: 'Diagnóstico Diferencial 1',
+		filter: 'dif1'
+	},
+	{
+		title: 'Diagnóstico Diferencial 2',
+		filter: 'dif2'
+	},
+	{
+		title: 'Diagnóstico Diferencial 3',
+		filter: 'dif3'
+	},
 ]
 
-export default withRouter((props) => {
+export default withAuthSync(withRouter((props) => {
 	const { title } =  props.router.query
 	const [filter, setFilter] = useState(menuItems[0].filter)
 	const [data, setData] = useState([])
@@ -143,4 +156,4 @@ export default withRouter((props) => {
 			</Grid>
 		</div>
 	)
-})
+}))

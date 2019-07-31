@@ -587,6 +587,24 @@ export default class CreateInjuryModal extends Component {
 								checked={this.state.op7 === 'n'}
 								onChange={this.handleChange}/>
 						</Form.Group>
+						<Form.Group inline>
+							<label><b>Diagnóstico Diferencial</b></label>
+							<Form.Field
+								required 
+								control={Input}
+								name='dif1'
+								onChange={this.handleChange}/>
+							<Form.Field
+								required 
+								control={Input}
+								name='dif2'
+								onChange={this.handleChange}/>
+							<Form.Field
+								required 
+								control={Input}
+								name='dif3'
+								onChange={this.handleChange}/>
+						</Form.Group>
 						<Button inverted color='purple' content='Enviar' type='submit'/>
 						<Button inverted color='grey' content='Cancelar' onClick={this.handleClose}/>
 					 </Form>

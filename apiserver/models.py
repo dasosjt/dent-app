@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from database import Base
@@ -46,6 +48,9 @@ class Injury(Base, Mixin):
     op6 = Column(String, nullable=False)
     op6_super = Column(Integer, nullable=True)
     op7 = Column(String, nullable=False)
+    dif1 = Column(String, nullable=False)
+    dif2 = Column(String, nullable=False)
+    dif3 = Column(String, nullable=False)
 
     not_default_attr = [ 'injury_id' ]
 
