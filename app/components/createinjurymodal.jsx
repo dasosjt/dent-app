@@ -6,12 +6,15 @@ import {
   Input,
   Select,
   Segment,
-  Icon
+  Icon,
+  Checkbox
 } from 'semantic-ui-react'
 import CSS from './css'
+import { range } from '../utils/functions'
 
 const DEFAULT_LOCATION = {
 	'location': '',
+	'_type': '',
 	'position': ''
 }
 
@@ -19,23 +22,46 @@ const BL = 0
 const DU = 1
 const AE = 2
 
-
 export default class CreateInjuryModal extends Component {
+	teethOptions = []
+
 	constructor(props){
 		super(props)
 
 		this.state = {
 			'modalOpen': false,
 			'locations': [{ ...DEFAULT_LOCATION }],
-			'op4_super': null,
+			'size_0': null,
+			'size_1': null,
 			'op5_type': null,
-			'op6_super': null
+			
 		}
 
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.teethOptions = this.initTeethOptions()
+
+		console.log(this.teethOptions)
+	}
+
+	initTeethOptions(){
+		const teethRange = range(1, 32).map(
+			number => {
+				const numberString = number.toString()
+				return {
+					'key': numberString,
+					'value': numberString,
+					'text': numberString 
+				}
+			}
+		)
+
+		return [
+			...teethRange,
+			{ 'key': 'sp', 'value': 'Super Numeraria', 'text': 'Super Numeraria'  }
+		]
 	}
 
 	handleOpen(){
@@ -46,7 +72,11 @@ export default class CreateInjuryModal extends Component {
 		this.setState({ 'modalOpen': false })
 	}
 
-	handleChange = (e, { name, value }) => {
+	handleChange = (e, { name, value, checked }) => {
+		if (value === undefined && checked !== undefined) {
+			value = checked;
+		}
+
 		this.setState({ [name]: value })
 	}
 
@@ -244,7 +274,7 @@ export default class CreateInjuryModal extends Component {
 									{ key: 'r', text: 'Rectangular', value: 'r' },
 									{ key: 'tr', text: 'Trapezoidal', value: 'tr' },
 									{ key: 'cu', text: 'Cuadrada', value: 'cu' },
-									{ key: 're', text: 'Regular', value: 're' },
+									{ key: 'ir', text: 'Irregular', value: 'ir' },
 									{ key: 's', text: 'Semi Circular', value: 's' }]}
 								onChange={this.handleChange}/>
 							<Form.Field
@@ -253,14 +283,13 @@ export default class CreateInjuryModal extends Component {
 								label='Bordes' 
 								name='op3'
 								options={[
-									{ key: 'de', text: 'Definidos', value: 'de' },
-									{ key: 'di', text: 'Difusos', value: 'di' },
-									{ key: 'e', text: 'Escleroticos', value: 'e' },
-									{ key: 'n', text: 'No Escleroticos', value: 'n' }]}
+									{ key: 'de', text: 'Definidos Esclerotico', value: 'de' },
+									{ key: 'dn', text: 'Definidos No Esclerotico', value: 'dn' },
+									{ key: 'di', text: 'Difusos', value: 'di' }]}
 								onChange={this.handleChange}/>
 						</Form.Group>
 						{ 
-							this.state.locations.map((location, index) => (
+							this.state.locations.map((obj, index) => (
 								<Form.Group
 									key={'location' + index}
 									inline>
@@ -272,9 +301,9 @@ export default class CreateInjuryModal extends Component {
 										options={[
 											{ 
 												key: 'bl-ligamento' + index,
-												text: 'Ligamento Estilohioide',
+												text: 'Ligamento Estilohioideo',
 												value: {
-													'name': 'Ligamento Estilohioide',
+													'name': 'Ligamento Estilohioideo',
 													'type': BL
 												}
 											},
@@ -303,10 +332,10 @@ export default class CreateInjuryModal extends Component {
 												}
 											},
 											{ 
-												key: 'bl-nariz' + index,
-												text: 'Nariz',
+												key: 'bl-huesonasal' + index,
+												text: 'Hueso Nasal',
 												value: {
-													'name': 'Nariz',
+													'name': 'Hueso Nasal',
 													'type': BL
 												}
 											},
@@ -399,14 +428,6 @@ export default class CreateInjuryModal extends Component {
 												}
 											},
 											{
-												key: 'du-espacio' + index,
-												text: 'Espacio',
-												value: {
-													'name': 'Espacio',
-													'type': DU
-												}
-											},
-											{
 												key: 'ae-oro' + index,
 												text: 'Orofaringe',
 												value: {
@@ -441,6 +462,40 @@ export default class CreateInjuryModal extends Component {
 											{ key: 'de' + index, text: 'Derecho', value: 'de' },
 											{ key: 'di' + index, text: 'Izquierdo', value: 'di' }]}
 										onChange={this.handlePositionChange}/>
+
+									{ 
+										obj.location === 'Mandibula' ?
+											<Form.Field
+												required
+												control={Select}
+												label='Rama'
+												name={index}
+												options={[
+													{ key: 'con' + index, text: 'Condilo Mandibular', value: 'con' },
+													{ key: 'apo' + index, text: 'Apofisis Coronoides', value: 'apo' }]}
+												onChange={this.handleChange}/> : null
+									}
+
+									{ 
+										obj.location === 'Mandibula' ?
+											<Form.Field
+												required
+												control={Checkbox}
+												label='Cuerpo' 
+												name={index}
+												onChange={this.handleChange}/> : null
+									}
+
+									{ 
+										obj.location === 'Maxilar' ?
+											<Form.Field
+												required
+												control={Checkbox}
+												label='Seno Maxilar' 
+												name={index}
+												onChange={this.handleChange}/> : null
+									}
+
 									<br key={'br' + index}/>
 									{
 										(() => index === this.state.locations.length - 1 ?
@@ -465,8 +520,7 @@ export default class CreateInjuryModal extends Component {
 							))
 						}
 						<Form.Group>
-							<Form.Field
-								required 
+							<Form.Field 
 								control={Input}
 								label='Eje Mayor' 
 								name='size_0'
@@ -474,7 +528,6 @@ export default class CreateInjuryModal extends Component {
 								step='0.1'
 								onChange={this.handleChange}/>
 							<Form.Field
-								required 
 								control={Input}
 								label='Eje Menor'  
 								name='size_1'
@@ -508,12 +561,11 @@ export default class CreateInjuryModal extends Component {
 								this.state.op4 === 'a' ? 
 								<Form.Field
 									required 
-									control={Input} 
-									label='Pieza Supernumeraria' 
+									control={Select} 
+									label='Pieza'
+									placeholder='Seleccionar Pieza Dental'
 									name='op4_super'
-									type='number'
-									min={0}
-									max={32}
+									options={this.teethOptions}
 									onChange={this.handleChange}/> :
 								null
 							}
@@ -563,12 +615,11 @@ export default class CreateInjuryModal extends Component {
 								this.state.op6 === 'c' ? 
 								<Form.Field
 									required 
-									control={Input} 
-									label='Pieza Supernumeraria' 
+									control={Select} 
+									label='Pieza'
+									placeholder='Seleccionar Pieza Dental'
 									name='op6_super'
-									type='number'
-									min={0}
-									max={32}
+									options={this.teethOptions}
 									onChange={this.handleChange}/> :
 								null
 							}
@@ -599,8 +650,7 @@ export default class CreateInjuryModal extends Component {
 								control={Input}
 								name='dif2'
 								onChange={this.handleChange}/>
-							<Form.Field
-								required 
+							<Form.Field 
 								control={Input}
 								name='dif3'
 								onChange={this.handleChange}/>

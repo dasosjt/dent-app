@@ -34,7 +34,7 @@ def login():
 	if username and password and username == 'admin' and password == 'admin':
 		return 'True', 200
 
-	return 'False', 201
+	return 'False', 500
 
 @app.route('/injury', methods=['GET'])
 def get_injuries():
@@ -159,14 +159,13 @@ def filter_injury(type, filter):
 			'r': 'Rectangular',
 			'tr': 'Trapezoidal',
 			'cu': 'Cuadrada',
-			're': 'Regular',
+			'ir': 'Irregular',
 			's': 'Semi Circular'
 		},
 		'op3': {
-			'de': 'Definidos',
+			'de': 'Definidos Esclerotico',
+			'dn': 'Definidos No Esclerotico',
 			'di': 'Difusos',
-			'e': 'Escleroticos',
-			'n': 'No Escleroticos'
 		},
 		'op4': {
 			'a': 'Asociada',

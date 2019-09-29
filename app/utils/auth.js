@@ -7,12 +7,12 @@ import { simulateApi } from './api'
 
 export const login = async ({ username, password, url }) => { //username, password.. -> payload
   try {
-    const response = await fetch(url, {
+    /*const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
-    })
-    //const response = await simulateApi({ 'ok': true }, 3000)
+    })*/
+    const response = await simulateApi({ 'ok': true, 'status': 200 }, 3000)
     console.log(response)
     if (response.status && response.status == 200) {
       /*const { token } = await response.json()*/

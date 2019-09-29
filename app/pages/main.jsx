@@ -21,7 +21,7 @@ const Main = props => {
 
 	useEffect(() => {
 		getInjuries()
-	}, [injuries])
+	}, [])
 
 	const getInjuries = () => fetch('http://127.0.0.1:5000/injury')
 		.then(response => response.json())
