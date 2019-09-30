@@ -51,11 +51,23 @@ const menuItems = [
 		filter: 'location_div'
 	},
 	{
+		title: 'Localización Blando',
+		filter: 'location_div_0'
+	},
+	{
+		title: 'Localización Duro',
+		filter: 'location_div_1'
+	},
+	{
+		title: 'Localización Aeréo',
+		filter: 'location_div_2'
+	},
+	{
 		title: 'Asociada',
 		filter: 'op4'
 	},
 	{
-		title: 'Asociada Super Númeraria',
+		title: 'Asociada Pieza Dental',
 		filter: 'op4_super'
 	},
 	{
@@ -71,7 +83,7 @@ const menuItems = [
 		filter: 'op6'
 	},
 	{
-		title: 'Desplazamiento Super Númeraria',
+		title: 'Desplazamiento Pieza Dental',
 		filter: 'op6_super'
 	},
 	{
@@ -117,8 +129,8 @@ export default withAuthSync(withRouter((props) => {
 			<HeaderLayout 
 				headerTitle={title.charAt(0).toUpperCase() + title.slice(1)}/>
 			<Grid>
-				<Grid.Column width={2}/>
-        		<Grid.Column width={12}>
+				<Grid.Column width={1}/>
+        		<Grid.Column width={14}>
         			<Grid>
 
 						<Grid.Column width={4}>
@@ -152,7 +164,7 @@ export default withAuthSync(withRouter((props) => {
 
 					</Grid>
 				</Grid.Column>
-				<Grid.Column width={2}/>
+				<Grid.Column width={1}/>
 			</Grid>
 		</div>
 	)

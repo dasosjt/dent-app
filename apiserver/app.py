@@ -94,19 +94,27 @@ def filter_injury(type, filter):
 	print(filter)
 
 	query = database.db_session()
+
+	location_sub = (
+		query.query(
+			m.InjuryLocation.location, 
+			func.count(m.InjuryLocation.location)
+		)
+		.join(
+			m.Injury,
+			m.Injury.injury_id == m.InjuryLocation.injury_id
+		)
+		.group_by(m.InjuryLocation.location)
+	)
 	
 	if filter and filter == 'location_sub':
-		query = (
-			query.query(
-				m.InjuryLocation.location, 
-				func.count(m.InjuryLocation.location)
-			)
-			.join(
-				m.Injury,
-				m.Injury.injury_id == m.InjuryLocation.injury_id
-			)
-			.group_by(m.InjuryLocation.location)
-		)
+		query = location_sub
+	elif filter and filter == 'location_div_0':
+		query = location_sub.filter(m.InjuryLocation._type == 0)
+	elif filter and filter == 'location_div_1':
+		query = location_sub.filter(m.InjuryLocation._type == 1)
+	elif filter and filter == 'location_div_2':
+		query = location_sub.filter(m.InjuryLocation._type == 2)
 	elif filter and filter == 'location_div':
 		query = (
 			query.query(
