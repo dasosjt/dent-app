@@ -59,7 +59,11 @@ export default class CreateInjuryModal extends Component {
 
 		return [
 			...teethRange,
-			{ 'key': 'sp', 'value': 'Super Numeraria', 'text': 'Super Numeraria'  }
+			{
+				'key': 'sp',
+				'value': 'Super Numeraria',
+				'text': 'Super Numeraria'
+			}
 		]
 	}
 
@@ -94,6 +98,35 @@ export default class CreateInjuryModal extends Component {
 		if(name <= this.state.locations.length - 1){
 			let locations = this.state.locations
 			locations[name]['position'] = value
+
+			this.setState({ 'locations':  locations })
+		}
+	}
+
+	handleBranchChange = (e, index) => {
+		console.log(e)
+		console.log(index)
+		if(name <= this.state.locations.length - 1){
+			let locations = this.state.locations
+			locations[name]['branch_mandibula'] = value
+
+			this.setState({ 'locations':  locations })
+		}
+	}
+
+	handleBodyChange = (e, { name, value }) => {
+		if(name <= this.state.locations.length - 1){
+			let locations = this.state.locations
+			locations[name]['body_mandibula'] = value
+
+			this.setState({ 'locations':  locations })
+		}
+	}
+
+	handleSinusChange = (e, { name, value }) => {
+		if(name <= this.state.locations.length - 1){
+			let locations = this.state.locations
+			locations[name]['sinus_maxilar'] = value
 
 			this.setState({ 'locations':  locations })
 		}
@@ -473,7 +506,7 @@ export default class CreateInjuryModal extends Component {
 												options={[
 													{ key: 'con' + index, text: 'Condilo Mandibular', value: 'con' },
 													{ key: 'apo' + index, text: 'Apofisis Coronoides', value: 'apo' }]}
-												onChange={this.handleChange}/> : null
+												onChange={(e) => this.handleBranchChange(e, index)}/> : null
 									}
 
 									{ 
@@ -481,9 +514,8 @@ export default class CreateInjuryModal extends Component {
 											<Form.Field
 												required
 												control={Checkbox}
-												label='Cuerpo' 
-												name={index}
-												onChange={this.handleChange}/> : null
+												label='Cuerpo'
+												onChange={(e) => this.handleBodyChange(e, index)}/> : null
 									}
 
 									{ 
@@ -493,7 +525,7 @@ export default class CreateInjuryModal extends Component {
 												control={Checkbox}
 												label='Seno Maxilar' 
 												name={index}
-												onChange={this.handleChange}/> : null
+												onChange={(e) => this.handleSinusChange(e, index)}/> : null
 									}
 
 									<br key={'br' + index}/>
