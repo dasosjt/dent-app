@@ -7,7 +7,8 @@ import {
   Select,
   Segment,
   Icon,
-  Checkbox
+  Checkbox,
+  Message
 } from 'semantic-ui-react'
 import CSS from './css'
 import { range } from '../utils/functions'
@@ -16,6 +17,13 @@ const DEFAULT_LOCATION = {
 	'location': '',
 	'_type': '',
 	'position': ''
+}
+
+const DEFAULT_INIT_STATE = {
+	'modalOpen': false,
+	'locations': [{ ...DEFAULT_LOCATION }],
+	'op5_type': null,
+	'error': null
 }
 
 const BL = 0
@@ -28,22 +36,13 @@ export default class CreateInjuryModal extends Component {
 	constructor(props){
 		super(props)
 
-		this.state = {
-			'modalOpen': false,
-			'locations': [{ ...DEFAULT_LOCATION }],
-			'size_0': null,
-			'size_1': null,
-			'op5_type': null,
-			
-		}
+		this.state = Object.assign({}, DEFAULT_INIT_STATE)
 
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.teethOptions = this.initTeethOptions()
-
-		console.log(this.teethOptions)
 	}
 
 	initTeethOptions(){
@@ -142,10 +141,11 @@ export default class CreateInjuryModal extends Component {
 				body: JSON.stringify(this.state)
 			 })
 			.then((response) => {
+				this.setState(DEFAULT_INIT_STATE)
 				this.handleClose()
 			})
 			.catch((error) => {
-				//this.handleClose()
+				this.setState({ error });
 			})
 	}
 
@@ -459,8 +459,8 @@ export default class CreateInjuryModal extends Component {
 										name={index}
 										label='Posición'
 										options={[
-											{ key: 'de' + index, text: 'Derecho', value: 'de' },
-											{ key: 'di' + index, text: 'Izquierdo', value: 'di' }]}
+											{ key: 'de' + index, text: 'Derecho', value: 'Derecha' },
+											{ key: 'di' + index, text: 'Izquierdo', value: 'Izquierda' }]}
 										onChange={this.handlePositionChange}/>
 
 									{ 
@@ -639,6 +639,32 @@ export default class CreateInjuryModal extends Component {
 								onChange={this.handleChange}/>
 						</Form.Group>
 						<Form.Group inline>
+							<Form.Radio
+								label='Pieza Incluida'
+								name='op8'
+								value='i'
+								checked={this.state.op8 === 'i'}
+								onChange={this.handleChange}/>
+							<Form.Radio
+								label='Pieza No Incluida'
+								name='op8'
+								value='n'
+								checked={this.state.op8 === 'n'}
+								onChange={this.handleChange}/>
+							{
+								this.state.op8 === 'i' ? 
+								<Form.Field
+									required 
+									control={Select} 
+									label='Pieza'
+									placeholder='Seleccionar Pieza Dental'
+									name='op8_super'
+									options={this.teethOptions}
+									onChange={this.handleChange}/> :
+								null
+							}
+						</Form.Group>
+						<Form.Group inline>
 							<label><b>Diagnóstico Diferencial</b></label>
 							<Form.Field
 								required 
@@ -655,6 +681,13 @@ export default class CreateInjuryModal extends Component {
 								name='dif3'
 								onChange={this.handleChange}/>
 						</Form.Group>
+						{
+							this.state.error ?
+							<Message negative>
+							    <Message.Header>Error</Message.Header>
+							    <p>La lesión no pudo ser ingresada</p>
+							</Message> : null
+						}
 						<Button inverted color='purple' content='Enviar' type='submit'/>
 						<Button inverted color='grey' content='Cancelar' onClick={this.handleClose}/>
 					 </Form>

@@ -9,9 +9,11 @@ import {
 } from 'semantic-ui-react'
 
 export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
-	<div>
-		<div style={{  paddingTop: 15 }}/>
-		<Grid>
+	<div style={{
+		marginBottom: 15,
+		paddingTop: 15
+	}}>
+		<Grid style={{ backgroundColor:'white' }}>
 			<Grid.Row columns={3}>
 				<Grid.Column width={2}>
 					<Image 
@@ -21,7 +23,16 @@ export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
 						height={65}/>
 				</Grid.Column>
 				<Grid.Column width={12}>
-					<Header as='h2' color='purple' textAlign='center'>
+					<Header 
+						as='h2'
+						color='purple' 
+						textAlign='center'
+						style={{
+							'height': '100%',
+							'width': '100%',
+							'position': 'absolute',
+							'top': '30%'
+						}}>
 						{ headerTitle }
 					</Header>
 				</Grid.Column>

@@ -48,6 +48,8 @@ class Injury(Base, Mixin):
     op6 = Column(String, nullable=False)
     op6_super = Column(String, nullable=True)
     op7 = Column(String, nullable=False)
+    op8 = Column(String, nullable=False)
+    op8_super = Column(String, nullable=True)
     dif1 = Column(String, nullable=False)
     dif2 = Column(String, nullable=False)
     dif3 = Column(String, nullable=True)

@@ -106,6 +106,18 @@ def filter_injury(type, filter):
 		)
 		.group_by(m.InjuryLocation.location)
 	)
+
+	location_sub_position = (
+		query.query(
+			m.InjuryLocation.position, 
+			func.count(m.InjuryLocation.position)
+		)
+		.join(
+			m.Injury,
+			m.Injury.injury_id == m.InjuryLocation.injury_id
+		)
+		.group_by(m.InjuryLocation.position)
+	)
 	
 	if filter and filter == 'location_sub':
 		query = location_sub
@@ -115,6 +127,82 @@ def filter_injury(type, filter):
 		query = location_sub.filter(m.InjuryLocation._type == 1)
 	elif filter and filter == 'location_div_2':
 		query = location_sub.filter(m.InjuryLocation._type == 2)
+	elif filter and filter == 'location_estilohioideo_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Ligamento Estilohioideo'
+		)
+	elif filter and filter == 'location_lengua_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Lengua'
+		)
+	elif filter and filter == 'location_tiroides_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Glandula Tiroides'
+		)
+	elif filter and filter == 'location_amigdala_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Amigdala'
+		)
+	elif filter and filter == 'location_nasal_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Hueso Nasal'
+		)
+	elif filter and filter == 'location_temporal_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Hueso Temporal'
+		)
+	elif filter and filter == 'location_cigomatico_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Hueso Cigomatico'
+		)
+	elif filter and filter == 'location_fosa_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Fosa Nasal'
+		)
+	elif filter and filter == 'location_hioides_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Hueso Hioides'
+		)
+	elif filter and filter == 'location_cervicales_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Vertebras Cervicales'
+		)
+	elif filter and filter == 'location_maxilar_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Maxilar'
+		)
+	elif filter and filter == 'location_mandibula_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Mandibula'
+		)
+	elif filter and filter == 'location_posterior_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Pared Posterior'
+		)
+	elif filter and filter == 'location_anterior_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Pared Anterior'
+		)
+	elif filter and filter == 'location_techo_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Techo'
+		)
+	elif filter and filter == 'location_piso_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Piso'
+		)
+	elif filter and filter == 'location_oro_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Orofaringe'
+		)
+	elif filter and filter == 'location_naso_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Nasofaringe'
+		)
+	elif filter and filter == 'location_hipo_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Hipofaringe'
+		)
 	elif filter and filter == 'location_div':
 		query = (
 			query.query(
@@ -195,6 +283,10 @@ def filter_injury(type, filter):
 		'op7': {
 			'c': 'Con Expansión de Corticales',
 			'n': 'Sin Expansión de Corticales'
+		},
+		'op8': {
+			'i': 'Pieza Incluida',
+			'n': 'Pieza No Incluida'
 		},
 		'location_div': {
 			0: 'Blando',

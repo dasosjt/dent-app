@@ -63,6 +63,10 @@ const menuItems = [
 		filter: 'location_div_2'
 	},
 	{
+		title: 'Prueba',
+		filter: 'location_lengua_position'
+	},
+	{
 		title: 'Asociada',
 		filter: 'op4'
 	},
@@ -81,6 +85,18 @@ const menuItems = [
 	{
 		title: 'Desplazamiento',
 		filter: 'op6'
+	},
+	{
+		title: 'Expansión de Corticales',
+		filter: 'op7'
+	},
+	{
+		title: 'Pieza Incluida',
+		filter: 'op8'
+	},
+	{
+		title: 'Asociada Pieza Incluida',
+		filter: 'op8_super'
 	},
 	{
 		title: 'Desplazamiento Pieza Dental',
@@ -155,10 +171,10 @@ export default withAuthSync(withRouter((props) => {
 
 						<Grid.Column stretched width={12}> 
 							<Segment inverted color='purple'>
-								<Header as='h2'>
-									{title.charAt(0).toUpperCase() + title.slice(1)}
-								</Header>
 								<FilterPie data={data}/>
+								<Segment inverted>
+									<p>Fuente: examen radiológico, fase III Dx, FOUSAC</p>
+								</Segment>
 							</Segment>
 						</Grid.Column> 
 
