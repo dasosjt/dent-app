@@ -44,27 +44,118 @@ const menuItems = [
 	},
 	{
 		title: 'Localización',
-		filter: 'location_sub'
-	},
-	{
-		title: 'Tipo Localización',
-		filter: 'location_div'
-	},
-	{
-		title: 'Localización Blando',
-		filter: 'location_div_0'
-	},
-	{
-		title: 'Localización Duro',
-		filter: 'location_div_1'
-	},
-	{
-		title: 'Localización Aeréo',
-		filter: 'location_div_2'
-	},
-	{
-		title: 'Prueba',
-		filter: 'location_lengua_position'
+		filter: 'location_sub',
+		sub: [
+			{
+				title: 'Localización',
+				filter: 'location_sub',
+			},
+			{
+				title: 'Tipo',
+				filter: 'location_div'
+			},
+			{
+				title: 'Tejido Blando',
+				filter: 'location_div_0'
+			},
+			{
+				title: 'Tejido Duro',
+				filter: 'location_div_1'
+			},
+			{
+				title: 'Espacio Aéreo',
+				filter: 'location_div_2'
+			},
+			{
+				title: 'Mandíbula',
+				filter: 'location_body_mandibula'
+			},
+			{
+				title: 'Rama Mandibular',
+				filter: 'location_branch_mandibula'
+			},
+			{
+				title: 'Maxilar',
+				filter: 'location_maxilar_position'
+			},
+			{
+				title: 'Seno Maxilar',
+				filter: 'location_sinus_maxilar'
+			},
+			{
+				title: 'Ligamento Estilohioideo',
+				filter: 'location_estilohioideo_position'
+			},
+			{
+				title: 'Lengua',
+				filter: 'location_lengua_position'
+			},
+			{
+				title: 'Glandula Tiroides',
+				filter: 'location_tiroides_position'
+			},
+			{
+				title: 'Amígdala',
+				filter: 'location_amigdala_position'
+			},
+			{
+				title: 'Hueso Nasal',
+				filter: 'location_nasal_position'
+			},
+			{
+				title: 'Hueso Temporal',
+				filter: 'location_temporal_position'
+			},
+			{
+				title: 'Hueso Cigomático',
+				filter: 'location_cigomatico_position'
+			},
+			{
+				title: 'Fosa Nasal',
+				filter: 'location_fosa_position'
+			},
+			{
+				title: 'Hueso Hioides',
+				filter: 'location_hioides_position'
+			},
+			{
+				title: 'Vertebras Cervicales',
+				filter: 'location_cervicales_position'
+			},
+			{
+				title: 'Mandíbula',
+				filter: 'location_mandibula_position'
+			},
+			/*
+			{
+				title: 'Pared Posterior',
+				filter: 'location_posterior_position'
+			},
+			{
+				title: 'Pared Anterior',
+				filter: 'location_anterior_position'
+			},
+			{
+				title: 'Techo',
+				filter: 'location_techo_position'
+			},
+			{
+				title: 'Piso',
+				filter: 'location_piso_position'
+			},*/
+			{
+				title: 'Orofaringe',
+				filter: 'location_oro_position'
+			},
+			{
+				title: 'Nasofaringe',
+				filter: 'location_naso_position'
+			},
+			{
+				title: 'Hipofaringe',
+				filter: 'location_hipo_position'
+			},
+		]
 	},
 	{
 		title: 'Asociada',
@@ -87,6 +178,10 @@ const menuItems = [
 		filter: 'op6'
 	},
 	{
+		title: 'Desplazamiento Pieza Dental',
+		filter: 'op6_super'
+	},
+	{
 		title: 'Expansión de Corticales',
 		filter: 'op7'
 	},
@@ -97,10 +192,6 @@ const menuItems = [
 	{
 		title: 'Asociada Pieza Incluida',
 		filter: 'op8_super'
-	},
-	{
-		title: 'Desplazamiento Pieza Dental',
-		filter: 'op6_super'
 	},
 	{
 		title: 'Tipo de Registro',
@@ -124,6 +215,7 @@ export default withAuthSync(withRouter((props) => {
 	const { title } =  props.router.query
 	const [filter, setFilter] = useState(menuItems[0].filter)
 	const [data, setData] = useState([])
+	const [subMenuItems, setSubMenuItems] = useState([])
 
 	const getData = () => fetch(`http://127.0.0.1:5000/injury/${title}/${filter}`)
 		.then(response => response.json())
@@ -135,8 +227,12 @@ export default withAuthSync(withRouter((props) => {
     	getData()
   	}, [filter])
 
-	const handleItemClick = async (e, { name }) => {
-		setFilter(name)
+	const handleItemClick = async (filter, sub) => {
+		setFilter(filter)
+
+		if(sub){
+			setSubMenuItems(sub)
+		}
 	}
 
 	return (
@@ -151,27 +247,49 @@ export default withAuthSync(withRouter((props) => {
 
 						<Grid.Column width={4}>
 							<Segment inverted color='purple'>
-							<Menu pointing secondary vertical inverted>
-							{
-								menuItems && menuItems.length > 0 ?
-								menuItems.map( (item, key) => (
-									<Menu.Item 
-										key={key}
-										name={item.filter}
-										active={filter === item.filter} 
-										onClick={handleItemClick}>
-										{item.title}
-	        						</Menu.Item>
-	        						)
-	        					) : null
-							}
-							</Menu>
+								<Menu pointing secondary vertical inverted>
+								{
+									menuItems && menuItems.length > 0 ?
+									menuItems.map( (item, key) => (
+										<Menu.Item 
+											key={key}
+											active={filter === item.filter} 
+											onClick={() => handleItemClick(item.filter, item.sub)}>
+											{item.title}
+		        						</Menu.Item>
+		        						)
+		        					) : null
+								}
+								</Menu>
 							</Segment>
 						</Grid.Column>
 
 						<Grid.Column stretched width={12}> 
 							<Segment inverted color='purple'>
-								<FilterPie data={data}/>
+								<Grid>
+									<Grid.Column width={4}>
+										<Segment inverted color='purple'>
+											<Menu pointing secondary vertical inverted>
+											{
+												subMenuItems && subMenuItems.length > 0 ?
+												subMenuItems.map( (item, key) => (
+													<Menu.Item 
+														key={key}
+														name={item.filter}
+														active={filter === item.filter} 
+														onClick={() => handleItemClick(item.filter, null)}>
+														{item.title}
+					        						</Menu.Item>
+					        						)
+					        					) : null
+											}
+											</Menu>
+										</Segment>
+									</Grid.Column>
+									<Grid.Column width={12}>
+										<FilterPie data={data}/>
+									</Grid.Column>
+								</Grid>
 								<Segment inverted>
 									<p>Fuente: examen radiológico, fase III Dx, FOUSAC</p>
 								</Segment>

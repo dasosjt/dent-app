@@ -16,7 +16,10 @@ import { range } from '../utils/functions'
 const DEFAULT_LOCATION = {
 	'location': '',
 	'_type': '',
-	'position': ''
+	'position': '',
+	'branch_mandibula': null,
+	'body_mandibula': false,
+	'sinus_maxilar': false
 }
 
 const DEFAULT_INIT_STATE = {
@@ -43,6 +46,9 @@ export default class CreateInjuryModal extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.teethOptions = this.initTeethOptions()
+		this.handleBranchChange = this.handleBranchChange.bind(this)
+		this.handleBodyChange = this.handleBodyChange.bind(this)
+		this.handleSinusChange = this.handleSinusChange.bind(this)
 	}
 
 	initTeethOptions(){
@@ -103,9 +109,7 @@ export default class CreateInjuryModal extends Component {
 		}
 	}
 
-	handleBranchChange = (e, index) => {
-		console.log(e)
-		console.log(index)
+	handleBranchChange = (e, { name,  value }) => {
 		if(name <= this.state.locations.length - 1){
 			let locations = this.state.locations
 			locations[name]['branch_mandibula'] = value
@@ -114,19 +118,19 @@ export default class CreateInjuryModal extends Component {
 		}
 	}
 
-	handleBodyChange = (e, { name, value }) => {
+	handleBodyChange = (index, { name, checked }) => {
 		if(name <= this.state.locations.length - 1){
 			let locations = this.state.locations
-			locations[name]['body_mandibula'] = value
+			locations[name]['body_mandibula'] = checked
 
 			this.setState({ 'locations':  locations })
 		}
 	}
 
-	handleSinusChange = (e, { name, value }) => {
+	handleSinusChange = (index, { name, checked }) => {
 		if(name <= this.state.locations.length - 1){
 			let locations = this.state.locations
-			locations[name]['sinus_maxilar'] = value
+			locations[name]['sinus_maxilar'] = checked
 
 			this.setState({ 'locations':  locations })
 		}
@@ -365,11 +369,11 @@ export default class CreateInjuryModal extends Component {
 												}
 											},
 											{ 
-												key: 'bl-huesonasal' + index,
+												key: 'du-huesonasal' + index,
 												text: 'Hueso Nasal',
 												value: {
 													'name': 'Hueso Nasal',
-													'type': BL
+													'type': DU
 												}
 											},
 											{
@@ -428,6 +432,7 @@ export default class CreateInjuryModal extends Component {
 													'type': DU
 												}
 											},
+											//3er nivel de maxilar
 											{
 												key: 'du-paredpos' + index,
 												text: 'Pared Posterior',
@@ -436,6 +441,7 @@ export default class CreateInjuryModal extends Component {
 													'type': DU
 												}
 											},
+											//3er nivel de maxilar
 											{
 												key: 'du-paredant' + index,
 												text: 'Pared Anterior',
@@ -444,6 +450,7 @@ export default class CreateInjuryModal extends Component {
 													'type': DU
 												}
 											},
+											//4to nivel de maxilar
 											{
 												key: 'du-techo' + index,
 												text: 'Techo',
@@ -452,6 +459,7 @@ export default class CreateInjuryModal extends Component {
 													'type': DU
 												}
 											},
+											//4to nivel de maxilar
 											{
 												key: 'du-piso' + index,
 												text: 'Piso',
@@ -497,16 +505,16 @@ export default class CreateInjuryModal extends Component {
 										onChange={this.handlePositionChange}/>
 
 									{ 
-										obj.location === 'Mandibula' ?
+										obj.location === 'Mandíbula' ?
 											<Form.Field
-												required
 												control={Select}
 												label='Rama'
 												name={index}
 												options={[
-													{ key: 'con' + index, text: 'Condilo Mandibular', value: 'con' },
-													{ key: 'apo' + index, text: 'Apofisis Coronoides', value: 'apo' }]}
-												onChange={(e) => this.handleBranchChange(e, index)}/> : null
+													{ key: 'rama' + index, text: 'Rama Mandibular', value: 'Rama Mandibular Mandibular' },
+													{ key: 'con' + index, text: 'Cóndilo Mandibular', value: 'Condilo Mandibular' },
+													{ key: 'apo' + index, text: 'Apófisis Coronoides', value: 'Apófisis Coronoides' }]}
+												onChange={this.handleBranchChange}/> : null
 									}
 
 									{ 
@@ -515,7 +523,8 @@ export default class CreateInjuryModal extends Component {
 												required
 												control={Checkbox}
 												label='Cuerpo'
-												onChange={(e) => this.handleBodyChange(e, index)}/> : null
+												name={index}
+												onChange={this.handleBodyChange}/> : null
 									}
 
 									{ 
@@ -525,7 +534,7 @@ export default class CreateInjuryModal extends Component {
 												control={Checkbox}
 												label='Seno Maxilar' 
 												name={index}
-												onChange={(e) => this.handleSinusChange(e, index)}/> : null
+												onChange={this.handleSinusChange}/> : null
 									}
 
 									<br key={'br' + index}/>

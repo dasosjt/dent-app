@@ -8,7 +8,7 @@ import {
 } from 'recharts'
 
 export default props => (
-  <div style={{ width: '100%', height: 700 }}>
+  <div style={{ width: '100%', height: 400 }}>
     <ResponsiveContainer>
       <PieChart>
         <Pie 

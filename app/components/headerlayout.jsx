@@ -10,7 +10,7 @@ import {
 
 export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
 	<div style={{
-		marginBottom: 15,
+		marginBottom: 50,
 		paddingTop: 15
 	}}>
 		<Grid style={{ backgroundColor:'white' }}>

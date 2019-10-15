@@ -175,10 +175,12 @@ def filter_injury(type, filter):
 		query = location_sub_position.filter(
 			m.InjuryLocation.location == 'Mandibula'
 		)
+	##Agregar a localizacion de maxilar
 	elif filter and filter == 'location_posterior_position':
 		query = location_sub_position.filter(
 			m.InjuryLocation.location == 'Pared Posterior'
 		)
+	##Agregar a localizacion de maxilar
 	elif filter and filter == 'location_anterior_position':
 		query = location_sub_position.filter(
 			m.InjuryLocation.location == 'Pared Anterior'
@@ -202,6 +204,45 @@ def filter_injury(type, filter):
 	elif filter and filter == 'location_hipo_position':
 		query = location_sub_position.filter(
 			m.InjuryLocation.location == 'Hipofaringe'
+		)
+	elif filter and filter == 'location_branch_mandibula':
+		query = (
+			query.query(
+				m.InjuryLocation.branch_mandibula, 
+				func.count(m.InjuryLocation.branch_mandibula)
+			)
+			.join(
+				m.Injury,
+				m.Injury.injury_id == m.InjuryLocation.injury_id
+			)
+			.filter(m.InjuryLocation.location == 'Mandibula')
+			.group_by(m.InjuryLocation.branch_mandibula)
+		)
+	elif filter and filter == 'location_body_mandibula':
+		query = (
+			query.query(
+				m.InjuryLocation.body_mandibula, 
+				func.count(m.InjuryLocation.body_mandibula)
+			)
+			.join(
+				m.Injury,
+				m.Injury.injury_id == m.InjuryLocation.injury_id
+			)
+			.filter(m.InjuryLocation.location == 'Mandibula')
+			.group_by(m.InjuryLocation.body_mandibula)
+		)
+	elif filter and filter == 'location_sinus_maxilar':
+		query = (
+			query.query(
+				m.InjuryLocation.sinus_maxilar, 
+				func.count(m.InjuryLocation.sinus_maxilar)
+			)
+			.join(
+				m.Injury,
+				m.Injury.injury_id == m.InjuryLocation.injury_id
+			)
+			.filter(m.InjuryLocation.location == 'Maxilar')
+			.group_by(m.InjuryLocation.sinus_maxilar)
 		)
 	elif filter and filter == 'location_div':
 		query = (
@@ -291,7 +332,15 @@ def filter_injury(type, filter):
 		'location_div': {
 			0: 'Blando',
 			1: 'Duro',
-			2: 'Aeréo'
+			2: 'Aéreo'
+		},
+		'location_body_mandibula': {
+			True: 'Cuerpo',
+			False: 'Rama'
+		},
+		'location_sinus_maxilar': {
+			True: 'Presente en Seno Maxilar',
+			False: 'No Presente en Seno Maxilar',
 		}
 	}
 
