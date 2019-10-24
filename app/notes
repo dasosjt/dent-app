@@ -1,0 +1,31 @@
+(ingreso de lesion ) 
+#tipo -> aspecto general
+#Asociado a piezas dentales
+	si si, del 1 al 32 y entry en blanco titulo : piezas supernumeraria
+nuevo entry expansión de corticales despuúes de con o sin desplazamiento
+#Forma -> { circular, ovalada, trinagular, semi circular, rectangular, trapezoidal, cuadrada, regular }
+#pulg -> mm 
+#Bords -> definidos, difusos, escleróticos y no escleróticos.
+#Tamaño -> 3 cuadritos, eje mayor, menor y diametro mm #
+#Registro antes de género, {PI, PT, PCE}
+antes de envíar diagnóstico diferencial 3 cuadritos
+#reabsorción y sin reabsorncion -> si si, entonces de raices dentarias, coronas dentarias, óseas
+#desplazamiento -> desplazamiento piezas dentarias, si si, del 1 al 32 y entry en blanco titulo : piezas supernumeraria
+
+(main)
+#solo el card con título
+#lucentas -> negro,
+#opacas -> blanca,
+#mixtas -> manchado
+#todos
+#listado de lesiones -> nombre, tipo y hora, eliminar lesión
+
+
+(gráficas)
+#genero, edad, aspecto general, unica-multiple, unilocular-multilocular, Formas, bordes, localizacion, asociado y no asociado, asociada y el número,  reabsorción y no, reabsorción y tipo, diagnóstico diferencial primer cuadrito 1, diagnóstico diferencial segundo, diagnóstico diferencial tercero, tipo de registro, desplazamiento y no desplazamiento, desplazamiento y el número.
+
+#Facultad de Odontología, Clínica de Radiología, Universidad San Carlos de Guatemala
+
+#sin muelitas
+
+!!diagnóstico diferencial primer cuadrito 1, diagnóstico diferencial segundo, diagnóstico diferencial tercero

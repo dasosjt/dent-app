@@ -15,16 +15,22 @@ import { range } from '../utils/functions'
 
 const DEFAULT_LOCATION = {
 	'location': '',
-	'_type': '',
 	'position': '',
+	'_type': '',
 	'branch_mandibula': null,
 	'body_mandibula': false,
 	'sinus_maxilar': false
 }
 
+const DEFAULT_TOOTH_LOCATION = {
+	'location': '',
+	'_type': ''
+}
+
 const DEFAULT_INIT_STATE = {
 	'modalOpen': false,
 	'locations': [{ ...DEFAULT_LOCATION }],
+	'tooths': [{ ...DEFAULT_TOOTH_LOCATION }],
 	'op5_type': null,
 	'error': null
 }
