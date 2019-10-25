@@ -19,11 +19,11 @@ class Mixin(object):
         ]
 
     def init(self, attr_dict):
-        return {
+        return self(**{
             k: attr_dict[k]
             for k in self.default_attr()
             if k in attr_dict
-        }
+        })
 
 class User(Base, Mixin):
     __tablename__ = 'user'
@@ -72,7 +72,7 @@ class Injury(Base, Mixin):
     )
 
     tooth = relationship(
-        'ToothLocation',
+        'Tooth',
         backref='injury',
         lazy=True
     )
@@ -82,8 +82,9 @@ class InjuryLocation(Base, Mixin):
     
     injury_location_id = Column(Integer, primary_key=True)
     location = Column(String, nullable=False)
-    position = Column(Integer, nullable=False)
     _type = Column(Integer, nullable=False)
+    
+    position = Column(Integer, nullable=False)
     branch_mandibula = Column(String, nullable=True)
     body_mandibula = Column(Boolean, nullable=True)
     sinus_maxilar = Column(Boolean, nullable=True)
@@ -92,13 +93,13 @@ class InjuryLocation(Base, Mixin):
 
     not_default_attr = [ 'injury_location_id' ]
 
-class ToothLocation(Base, Mixin):
-    __tablename__ = 'tooth_location'
+class Tooth(Base, Mixin):
+    __tablename__ = 'tooth'
     
-    tooth_location_id = Column(Integer, primary_key=True)
+    tooth_id = Column(Integer, primary_key=True)
     location = Column(String, nullable=False)
     _type = Column(Integer, nullable=False)
     
     injury_id = Column(Integer, ForeignKey('injury.injury_id'))
 
-    not_default_attr = [ 'tooth_location_id' ]
+    not_default_attr = [ 'tooth_id' ]

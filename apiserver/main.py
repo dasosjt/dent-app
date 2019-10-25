@@ -31,8 +31,7 @@ def shutdown_session(exception=None):
 	if g.s:
 		if exception:
 			g.s.rollback()
-		g.s.remove()
-
+		g.s.close()
 
 @app.route('/')
 def hello_world():
@@ -41,6 +40,8 @@ def hello_world():
 @app.route('/init/db')
 def init_db():
 	database.init_db()
+
+	return 'Init DB'
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -71,12 +72,7 @@ def create_injury():
 	location_data = data['locations']
 	tooth_data = data['tooths']
 
-
-	injury = m.Injury(**{ 
-		k: data[k] 
-		for k in m.Mixin.default_attr(m.Injury)
-		if k in data
-	})
+	injury = m.Injury.init(data)
 
 	g.s.add(injury)
 	g.s.flush()
@@ -84,7 +80,7 @@ def create_injury():
 	for _location in location_data:
 		attr_dict = {
 			k: _location[k]
-			for k in m.Mixin.default_attr(m.InjuryLocation)
+			for k in m.InjuryLocation.default_attr()
 			if k in _location
 		}
 
@@ -97,7 +93,7 @@ def create_injury():
 	for _tooth in tooth_data:
 		attr_dict = {
 			k: _tooth[k]
-			for k in m.Mixin.default_attr(m.ToothLocation)
+			for k in m.ToothLocation.default_attr()
 			if k in _tooth
 		}
 
@@ -300,70 +296,7 @@ def filter_injury(type, filter):
 			.group_by(getattr(m.Injury, filter))
 		)
 
-	type_mapper = {
-		'lucentes': 'l',
-		'opacas': 'o',
-		'mixtas': 'm'
-	}
-
 	filter_mapper = {
-		'register': {
-			'pi': 'PI',
-			'pt': 'PT',
-			'pce': 'PCE'
-		},
-		'gender': {
-			'm': 'Hombre',
-			'f': 'Mujer'
-		},
-		'op1': {
-			'u': 'Única',
-			'm': 'Multiple'
-		},
-		'op2': {
-			'u': 'Unilocular',
-			'm': 'Multilocular'
-		},
-		'form': {
-			'c': 'Circular',
-			'o': 'Ovalada',
-			't': 'Triangular',
-			'r': 'Rectangular',
-			'tr': 'Trapezoidal',
-			'cu': 'Cuadrada',
-			'ir': 'Irregular',
-			's': 'Semi Circular'
-		},
-		'op3': {
-			'de': 'Definidos Esclerotico',
-			'dn': 'Definidos No Esclerotico',
-			'di': 'Difusos',
-		},
-		'op4': {
-			'a': 'Asociada',
-			'n': 'No Asociado'
-		},
-		'op5': {
-			'c': 'Con Reabsorción',
-			'n': 'Sin Reabsorción'
-		},
-		'op5_type': {
-			'r': 'Raices Dentarias',
-			'c': 'Coronas Dentarias',
-			'o': 'Óseas'
-		},
-		'op6': {
-			'c': 'Con Desplazamiento Piezas Dentarias',
-			'n': 'Sin Desplazamiento Piezas Dentarias'
-		},
-		'op7': {
-			'c': 'Con Expansión de Corticales',
-			'n': 'Sin Expansión de Corticales'
-		},
-		'op8': {
-			'i': 'Pieza Incluida',
-			'n': 'Pieza No Incluida'
-		},
 		'location_div': {
 			0: 'Blando',
 			1: 'Duro',
@@ -379,10 +312,8 @@ def filter_injury(type, filter):
 		}
 	}
 
-	type_filter = type_mapper.get(type, None)
-
-	if type_filter:
-		query = query.filter(m.Injury._type == type_filter)
+	if type:
+		query = query.filter(m.Injury._type == type)
 
 	print(query)
 
@@ -393,7 +324,6 @@ def filter_injury(type, filter):
 		filter_name = filter_mapper.get(filter)
 
 		if isinstance(filter_name, dict):
-			print(result[0])
 			name = filter_name.get(result[0])
 		else:
 			name = result[0]

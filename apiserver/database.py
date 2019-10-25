@@ -13,8 +13,12 @@ db_session = sessionmaker(
 )
 
 Base = declarative_base()
-#Base.query = db_session.query_property()
 
 def init_db():
-    from models import User
+    from models import (
+    	User,
+    	Injury,
+    	InjuryLocation,
+    	Tooth
+    )
     Base.metadata.create_all(bind=engine)

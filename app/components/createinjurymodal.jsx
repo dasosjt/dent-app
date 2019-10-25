@@ -22,7 +22,7 @@ const DEFAULT_LOCATION = {
 	'sinus_maxilar': false
 }
 
-const DEFAULT_TOOTH_LOCATION = {
+const DEFAULT_TOOTH = {
 	'location': '',
 	'_type': ''
 }
@@ -30,7 +30,7 @@ const DEFAULT_TOOTH_LOCATION = {
 const DEFAULT_INIT_STATE = {
 	'modalOpen': false,
 	'locations': [{ ...DEFAULT_LOCATION }],
-	'tooths': [{ ...DEFAULT_TOOTH_LOCATION }],
+	'tooths': [{ ...DEFAULT_TOOTH }],
 	'op5_type': null,
 	'error': null
 }
@@ -47,11 +47,12 @@ export default class CreateInjuryModal extends Component {
 
 		this.state = Object.assign({}, DEFAULT_INIT_STATE)
 
+		this.teethOptions = this.initTeethOptions()
+
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
-		this.teethOptions = this.initTeethOptions()
 		this.handleBranchChange = this.handleBranchChange.bind(this)
 		this.handleBodyChange = this.handleBodyChange.bind(this)
 		this.handleSinusChange = this.handleSinusChange.bind(this)
@@ -236,9 +237,9 @@ export default class CreateInjuryModal extends Component {
 								label='Registro' 
 								name='register'
 								options={[
-									{ key: 'pi', text: 'PI', value: 'pi', name: 'register' },
-									{ key: 'pt', text: 'PT', value: 'pt' },
-									{ key: 'pce', text: 'PCE', value: 'pce' }]}
+									{ key: 'pi', text: 'PI', value: 'PI' },
+									{ key: 'pt', text: 'PT', value: 'PT' },
+									{ key: 'pce', text: 'PCE', value: 'PCE' }]}
 								onChange={this.handleChange}/>
 							<Form.Field 
 								required 
@@ -255,8 +256,8 @@ export default class CreateInjuryModal extends Component {
 								label='Género' 
 								name='gender'
 								options={[
-									{ key: 'm', text: 'Hombre', value: 'm' },
-									{ key: 'f', text: 'Mujer', value: 'f' }]}
+									{ key: 'm', text: 'Hombre', value: 'Hombre' },
+									{ key: 'f', text: 'Mujer', value: 'Mujer' }]}
 								onChange={this.handleChange}/>
 							<Form.Field 
 								required 
@@ -272,36 +273,36 @@ export default class CreateInjuryModal extends Component {
 							label='Aspecto General' 
 							name='_type'
 							options={[
-								{ key: 'l', text: 'Lucente', value: 'l' },
-								{ key: 'o', text: 'Opaca', value: 'o' },
-								{ key: 'm', text: 'Mixta', value: 'm' }]}
+								{ key: 'l', text: 'Lucente', value: 'Lucente' },
+								{ key: 'o', text: 'Opaca', value: 'Opaca' },
+								{ key: 'm', text: 'Mixta', value: 'Mixta' }]}
 							onChange={this.handleChange}/>
 						<Form.Group inline>
 							<Form.Radio
 								label='Única'
 								name='op1'
-								value='u'
-								checked={this.state.op1 === 'u'}
+								value='Única'
+								checked={this.state.op1 === 'Única'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='Multiple'
 								name='op1'
-								value='m'
-								checked={this.state.op1 === 'm'}
+								value='Multiple'
+								checked={this.state.op1 === 'Multiple'}
 								onChange={this.handleChange}/>
 						</Form.Group>
 						<Form.Group inline>
 							<Form.Radio
 								label='Unilocular'
 								name='op2'
-								value='u'
-								checked={this.state.op2 === 'u'}
+								value='Unilocular'
+								checked={this.state.op2 === 'Unilocular'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='Multilocular'
 								name='op2'
-								value='m'
-								checked={this.state.op2 === 'm'}
+								value='Multilocular'
+								checked={this.state.op2 === 'Multilocular'}
 								onChange={this.handleChange}/>
 						</Form.Group>
 						<Form.Group inline>
@@ -311,14 +312,14 @@ export default class CreateInjuryModal extends Component {
 								label='Forma' 
 								name='form'
 								options={[
-									{ key: 'c', text: 'Circular', value: 'c' },
-									{ key: 'o', text: 'Ovalada', value: 'o' },
-									{ key: 't', text: 'Triangular', value: 't' },
-									{ key: 'r', text: 'Rectangular', value: 'r' },
-									{ key: 'tr', text: 'Trapezoidal', value: 'tr' },
-									{ key: 'cu', text: 'Cuadrada', value: 'cu' },
-									{ key: 'ir', text: 'Irregular', value: 'ir' },
-									{ key: 's', text: 'Semi Circular', value: 's' }]}
+									{ key: 'c', text: 'Circular', value: 'Circular' },
+									{ key: 'o', text: 'Ovalada', value: 'Ovalada' },
+									{ key: 't', text: 'Triangular', value: 'Triangular' },
+									{ key: 'r', text: 'Rectangular', value: 'Rectangular' },
+									{ key: 'tr', text: 'Trapezoidal', value: 'Trapezoidal' },
+									{ key: 'cu', text: 'Cuadrada', value: 'Cuadrada' },
+									{ key: 'ir', text: 'Irregular', value: 'Irregular' },
+									{ key: 's', text: 'Semi Circular', value: 'Semi Circular' }]}
 								onChange={this.handleChange}/>
 							<Form.Field
 								required 
@@ -326,9 +327,9 @@ export default class CreateInjuryModal extends Component {
 								label='Bordes' 
 								name='op3'
 								options={[
-									{ key: 'de', text: 'Definidos Esclerotico', value: 'de' },
-									{ key: 'dn', text: 'Definidos No Esclerotico', value: 'dn' },
-									{ key: 'di', text: 'Difusos', value: 'di' }]}
+									{ key: 'de', text: 'Definidos Esclerotico', value: 'Definidos Esclerotico' },
+									{ key: 'dn', text: 'Definidos No Esclerotico', value: 'Definidos No Esclerotico' },
+									{ key: 'di', text: 'Difusos', value: 'Difusos' }]}
 								onChange={this.handleChange}/>
 						</Form.Group>
 						{ 
@@ -432,9 +433,9 @@ export default class CreateInjuryModal extends Component {
 											},
 											{
 												key: 'du-mandibula' + index,
-												text: 'Mandibula',
+												text: 'Mandíbula',
 												value: {
-													'name': 'Mandibula',
+													'name': 'Mandíbula',
 													'type': DU
 												}
 											},
@@ -506,8 +507,8 @@ export default class CreateInjuryModal extends Component {
 										name={index}
 										label='Posición'
 										options={[
-											{ key: 'de' + index, text: 'Derecho', value: 'Derecha' },
-											{ key: 'di' + index, text: 'Izquierdo', value: 'Izquierda' }]}
+											{ key: 'de' + index, text: 'Derecho', value: 'Derecho' },
+											{ key: 'di' + index, text: 'Izquierdo', value: 'Izquierdo' }]}
 										onChange={this.handlePositionChange}/>
 
 									{ 
@@ -517,14 +518,14 @@ export default class CreateInjuryModal extends Component {
 												label='Rama'
 												name={index}
 												options={[
-													{ key: 'rama' + index, text: 'Rama Mandibular', value: 'Rama Mandibular Mandibular' },
+													{ key: 'rama' + index, text: 'Rama Mandibular', value: 'Rama Mandibular' },
 													{ key: 'con' + index, text: 'Cóndilo Mandibular', value: 'Condilo Mandibular' },
 													{ key: 'apo' + index, text: 'Apófisis Coronoides', value: 'Apófisis Coronoides' }]}
 												onChange={this.handleBranchChange}/> : null
 									}
 
 									{ 
-										obj.location === 'Mandibula' ?
+										obj.location === 'Mandíbula' ?
 											<Form.Field
 												required
 												control={Checkbox}
@@ -595,17 +596,17 @@ export default class CreateInjuryModal extends Component {
 							<Form.Radio
 								label='Asociada'
 								name='op4'
-								value='a'
-								checked={this.state.op4 === 'a'}
+								value='Asociada'
+								checked={this.state.op4 === 'Asociada'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='No Asociado'
 								name='op4'
-								value='n'
-								checked={this.state.op4 === 'n'}
+								value='No Asociado'
+								checked={this.state.op4 === 'No Asociado'}
 								onChange={this.handleChange}/>
 							{
-								this.state.op4 === 'a' ? 
+								this.state.op4 === 'Asociada' ? 
 								<Form.Field
 									required 
 									control={Select} 
@@ -621,26 +622,26 @@ export default class CreateInjuryModal extends Component {
 							<Form.Radio
 								label='Con Reabsorción'
 								name='op5'
-								value='c'
-								checked={this.state.op5 === 'c'}
+								value='Con Reabsorción'
+								checked={this.state.op5 === 'Con Reabsorción'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='Sin Reabsorción'
 								name='op5'
-								value='n'
-								checked={this.state.op5 === 'n'}
+								value='Sin Reabsorción'
+								checked={this.state.op5 === 'Sin Reabsorción'}
 								onChange={this.handleChange}/>
 							{
-								this.state.op5 === 'c' ? 
+								this.state.op5 === 'Con Reabsorción' ? 
 								<Form.Field
 									required 
 									control={Select} 
 									label='Tipo' 
 									name='op5_type'
 									options={[
-										{ key: 'r', text: 'Raices Dentarias', value: 'r' },
-										{ key: 'c', text: 'Coronas Dentarias', value: 'c' },
-										{ key: 'o', text: 'Óseas', value: 'o' }]}
+										{ key: 'r', text: 'Raices Dentarias', value: 'Raices Dentarias' },
+										{ key: 'c', text: 'Coronas Dentarias', value: 'Coronas Dentarias' },
+										{ key: 'o', text: 'Óseas', value: 'Óseas' }]}
 									onChange={this.handleChange}/> :
 								null
 							}
@@ -649,17 +650,17 @@ export default class CreateInjuryModal extends Component {
 							<Form.Radio
 								label='Con Desplazamiento Piezas Dentarias'
 								name='op6'
-								value='c'
-								checked={this.state.op6 === 'c'}
+								value='Con Desplazamiento Piezas Dentarias'
+								checked={this.state.op6 === 'Con Desplazamiento Piezas Dentarias'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='Sin Desplazamiento Piezas Dentarias'
 								name='op6'
-								value='n'
-								checked={this.state.op6 === 'n'}
+								value='Sin Desplazamiento Piezas Dentarias'
+								checked={this.state.op6 === 'Sin Desplazamiento Piezas Dentarias'}
 								onChange={this.handleChange}/>
 							{
-								this.state.op6 === 'c' ? 
+								this.state.op6 === 'Con Desplazamiento Piezas Dentarias' ? 
 								<Form.Field
 									required 
 									control={Select} 
@@ -675,31 +676,31 @@ export default class CreateInjuryModal extends Component {
 							<Form.Radio
 								label='Con Expansión de Corticales'
 								name='op7'
-								value='c'
-								checked={this.state.op7 === 'c'}
+								value='Con Expansión de Corticales'
+								checked={this.state.op7 === 'Con Expansión de Corticales'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='Sin Expansión de Corticales'
 								name='op7'
-								value='n'
-								checked={this.state.op7 === 'n'}
+								value='Sin Expansión de Corticales'
+								checked={this.state.op7 === 'Sin Expansión de Corticales'}
 								onChange={this.handleChange}/>
 						</Form.Group>
 						<Form.Group inline>
 							<Form.Radio
 								label='Pieza Incluida'
 								name='op8'
-								value='i'
-								checked={this.state.op8 === 'i'}
+								value='Pieza Incluida'
+								checked={this.state.op8 === 'Pieza Incluida'}
 								onChange={this.handleChange}/>
 							<Form.Radio
 								label='Pieza No Incluida'
 								name='op8'
-								value='n'
-								checked={this.state.op8 === 'n'}
+								value='Pieza No Incluida'
+								checked={this.state.op8 === 'Pieza No Incluida'}
 								onChange={this.handleChange}/>
 							{
-								this.state.op8 === 'i' ? 
+								this.state.op8 === 'Pieza Incluida' ? 
 								<Form.Field
 									required 
 									control={Select} 
