@@ -153,11 +153,11 @@ def filter_injury(type, filter):
 	if filter and filter == 'location_sub':
 		query = location_sub
 	elif filter and filter == 'location_div_0':
-		query = location_sub.filter(m.InjuryLocation._type == 0)
+		query = location_sub.filter(m.InjuryLocation._type == 'Blando')
 	elif filter and filter == 'location_div_1':
-		query = location_sub.filter(m.InjuryLocation._type == 1)
+		query = location_sub.filter(m.InjuryLocation._type == 'Duro')
 	elif filter and filter == 'location_div_2':
-		query = location_sub.filter(m.InjuryLocation._type == 2)
+		query = location_sub.filter(m.InjuryLocation._type == 'Aéreo')
 	elif filter and filter == 'location_estilohioideo_position':
 		query = location_sub_position.filter(
 			m.InjuryLocation.location == 'Ligamento Estilohioideo'
@@ -297,11 +297,6 @@ def filter_injury(type, filter):
 		)
 
 	filter_mapper = {
-		'location_div': {
-			0: 'Blando',
-			1: 'Duro',
-			2: 'Aéreo'
-		},
 		'location_body_mandibula': {
 			True: 'Cuerpo',
 			False: 'Rama'
