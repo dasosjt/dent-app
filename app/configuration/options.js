@@ -221,3 +221,5 @@ export const OP5_TYPE = [
 	{ key: 'c', text: 'Coronas Dentarias', value: 'Coronas Dentarias' },
 	{ key: 'o', text: 'Óseas', value: 'Óseas' }
 ]
+
+export const T = ""

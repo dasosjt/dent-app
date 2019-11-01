@@ -22,7 +22,7 @@ import {
 const DEFAULT_INIT_STATE = {
     'modalOpen': false,
     'locations': [{ ...DEFAULT_LOCATION }],
-    'tooths': [{ ...DEFAULT_TOOTH }],
+    'tooths': [],
     'op5_type': null,
     'error': null
 }
@@ -79,6 +79,10 @@ export default class CreateInjuryModal extends Component {
     handleChange = (e, { name, value, checked }) => {
         if (value === undefined && checked !== undefined) {
             value = checked;
+        }
+
+        if (name === 'Asociada'){
+            this.checkTooth(name)
         }
 
         this.setState({ [name]: value })
@@ -168,7 +172,7 @@ export default class CreateInjuryModal extends Component {
             ...state,
             'tooths': [
                 ...state.tooths,
-                { ...DEFAULT_LOCATION }
+                { ...DEFAULT_TOOTH }
             ]
         }))
     }
@@ -209,6 +213,27 @@ export default class CreateInjuryModal extends Component {
             .catch((error) => {
                 this.setState({ error });
             })
+    }
+
+    checkTooth(currentType){
+        console.log(this.state.tooths)
+        const tooths = this.state.tooths.filter(
+            tooth => tooth._type === currentType
+        )
+        console.log(tooths)
+
+        if (tooths.length === 0) {
+            let new_tooth = Object.assign({}, DEFAULT_TOOTH)
+            new_tooth['_type'] = currentType
+
+            this.setState(state => ({
+                ...state,
+                'tooths': [
+                    ...state.tooths,
+                    { ...DEFAULT_TOOTH }
+                ]
+            }))
+        }
     }
 
     render(){
@@ -429,17 +454,12 @@ export default class CreateInjuryModal extends Component {
                                 value='No Asociado'
                                 checked={this.state.op4 === 'No Asociado'}
                                 onChange={this.handleChange}/>
-                            {
-                                this.state.op4 === 'Asociada' ? 
-                                /*<Form.Field
-                                    required 
-                                    control={Select} 
-                                    label='Pieza'
-                                    placeholder='Seleccionar Pieza Dental'
-                                    name='op4_super'
-                                    options={this.teethOptions}
-                                    onChange={this.handleChange}/>*/
-                                this.state.tooths.map((obj, index) => (
+                        </Form.Group>
+                        {
+                            this.state.op4 === 'Asociada' ? 
+                            this.state.tooths.filter(
+                                t => t._type === 'Asociada'
+                            ).map((obj, index) => (
                                 <Form.Group
                                     key={'tooth' + index}
                                     inline>
@@ -447,7 +467,7 @@ export default class CreateInjuryModal extends Component {
                                         required 
                                         control={Select}  
                                         name={index}
-                                        label='Diente'
+                                        label='Pieza Dental'
                                         options={this.teethOptions}
                                         onChange={this.handleTeethChange}/>
                                     <br key={'br' + index}/>
@@ -457,9 +477,10 @@ export default class CreateInjuryModal extends Component {
                                             this.addTooth, this.removeTooth
                                         )
                                     }
-                                </Form.Group> )) : null
-                            }
-                        </Form.Group>
+                                </Form.Group>
+                                )
+                            ) : null
+                        }
                         <Form.Group inline>
                             <Form.Radio
                                 label='Con Reabsorción'

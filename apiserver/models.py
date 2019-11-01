@@ -82,7 +82,7 @@ class InjuryLocation(Base, Mixin):
     
     injury_location_id = Column(Integer, primary_key=True)
     location = Column(String, nullable=False)
-    _type = Column(Integer, nullable=False)
+    _type = Column(String, nullable=False)
     
     position = Column(Integer, nullable=False)
     branch_mandibula = Column(String, nullable=True)
@@ -98,7 +98,7 @@ class Tooth(Base, Mixin):
     
     tooth_id = Column(Integer, primary_key=True)
     location = Column(String, nullable=False)
-    _type = Column(Integer, nullable=False)
+    _type = Column(String, nullable=False)
     
     injury_id = Column(Integer, ForeignKey('injury.injury_id'))
 
