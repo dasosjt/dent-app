@@ -294,17 +294,17 @@ export const MENUITEMS = currentType => [
                     {
                         title: 'Ligamento Estilohioideo',
                         filter: 'location_estilohioideo_position',
-                        chartTitle: `Lesiones ${currentType} en ligamento estilohioide`,
+                        chartTitle: `Lesiones ${currentType} en ligamento estilohioideo`,
                     },
                     {
                         title: 'Lengua',
                         filter: 'location_lengua_position',
-                        chartTitle: `Lesiones ${currentType} en lengu`,
+                        chartTitle: `Lesiones ${currentType} en lengua`,
                     },
                     {
                         title: 'Glándula Tiroides',
                         filter: 'location_tiroides_position',
-                        chartTitle: `Lesiones ${currentType} en glándula tiroide`,
+                        chartTitle: `Lesiones ${currentType} en glándula tiroides`,
                     },
                     {
                         title: 'Amígdala',

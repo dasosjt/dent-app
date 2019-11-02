@@ -20,10 +20,23 @@ import { withAuthSync } from '../utils/auth'
 import { MENUITEMS } from '../configuration/options'
 
 export default withAuthSync(withRouter((props) => {
+    const translateMenu = m => ({
+        key: m.filter,
+        text: m.title,
+        value: m,
+    })
+
     const { title } =  props.router.query
     const headerTitle = title.charAt(0).toUpperCase() + title.slice(1)
-    const menu = MENUITEMS(headerTitle)
-    const [filter, setFilter] = useState(menu[0].filter)
+    let headerTitleChart = ''
+    if (headerTitle !== 'Todas') {
+        headerTitleChart = headerTitle
+    }
+    const menu = MENUITEMS(headerTitleChart).map(translateMenu)
+    
+    const [filter, setFilter] = useState(menu[0].value.filter)
+    const [filterTitle, setFilterTitle] = useState(menu[0].value.title)
+    const [chartTitle, setChartTitle] = useState(menu[0].value.chartTitle)
     const [data, setData] = useState([])
     const [subMenuItems, setSubMenuItems] = useState([])
 
@@ -37,11 +50,17 @@ export default withAuthSync(withRouter((props) => {
         getData()
     }, [filter])
 
-    const handleItemClick = async (filter, sub) => {
+
+
+    const handleItemClick = async (filter, sub, chartTitle, filterTitle) => {
         setFilter(filter)
+        setChartTitle(chartTitle)
+        setFilterTitle(filterTitle)
 
         if(sub){
-            setSubMenuItems(sub)
+            setSubMenuItems(sub.map(translateMenu))
+        } else {
+            setSubMenuItems([])
         }
     }
 
@@ -51,58 +70,56 @@ export default withAuthSync(withRouter((props) => {
             <HeaderLayout 
                 headerTitle={headerTitle}/>
             <Grid>
-                <Grid.Column width={16}>
+                <Grid.Column width={1}/>
+                <Grid.Column width={14}>
                     <Grid>
-                        <Grid.Column width={3}>
-                            <Segment inverted color='purple'>
-                                <Menu pointing secondary vertical inverted>
-                                {
-                                    menu && menu.length > 0 ?
-                                    menu.map( (item, key) => (
-                                        <Menu.Item 
-                                            key={key}
-                                            active={filter === item.filter} 
-                                            onClick={() => handleItemClick(item.filter, item.sub)}>
-                                            {item.title}
-                                        </Menu.Item>
+                        <Grid.Column streched width={16}>
+                            <Segment inverted color='purple' inline>
+                                <Dropdown
+                                    text={filterTitle}
+                                    icon='filter'
+                                    floating
+                                    labeled
+                                    button
+                                    options={menu}
+                                    className='icon'
+                                    onChange={(e, { value }) => 
+                                        handleItemClick(
+                                            value.filter, 
+                                            value.sub,
+                                            value.chartTitle,
+                                            value.title
                                         )
-                                    ) : null
-                                }
-                                </Menu>
-                            </Segment>
-                        </Grid.Column>
-
-                        <Grid.Column width={3}>
-                            <Segment inverted color='purple'>
-                                <Menu pointing secondary vertical inverted>
-                                    {
-                                        subMenuItems && subMenuItems.length > 0 ?
-                                        subMenuItems.map( (item, key) => (
-                                            <Menu.Item 
-                                                key={key}
-                                                name={item.filter}
-                                                active={filter === item.filter} 
-                                                onClick={() => handleItemClick(item.filter, item.sub)}>
-                                                {item.title}
-                                            </Menu.Item>
-                                            )
-                                        ) : null
-                                    }
-                                </Menu>
-                            </Segment>
-                        </Grid.Column> 
-
-                        <Grid.Column stretched width={10}> 
-                            <Segment inverted color='purple'>
+                                    }/>
+                                <Dropdown
+                                    icon='filter'
+                                    floating
+                                    labeled
+                                    button
+                                    options={subMenuItems}
+                                    className='icon'
+                                    onChange={(e, { value }) => 
+                                        handleItemClick(
+                                            value.filter, 
+                                            value.sub,
+                                            value.chartTitle,
+                                            value.title
+                                        )
+                                    }/>
+                                <Segment inverted style={{
+                                        float: 'right'
+                                    }}>
+                                    <p>{chartTitle}</p>
+                                </Segment>
                                 <FilterPie data={data}/>
                                 <Segment inverted>
                                     <p>Fuente: examen radiológico, fase III Dx, FOUSAC</p>
                                 </Segment>
                             </Segment>
                         </Grid.Column> 
-
                     </Grid>
                 </Grid.Column>
+                <Grid.Column width={1}/>
             </Grid>
         </div>
     )

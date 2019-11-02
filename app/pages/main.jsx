@@ -55,7 +55,7 @@ const Main = props => {
 										  <Card.Header>Lucentes</Card.Header>
 										</Card.Content>
 										<Card.Content extra>
-											<Link href={'/chart?title=lucentes'}>
+											<Link href={'/chart?title=Lucente'}>
 												<a>Mas Información</a>
 											</Link>
 										</Card.Content>
@@ -67,7 +67,7 @@ const Main = props => {
 										  <Card.Header  style={{ 'color': 'white' }}>Opacas</Card.Header>
 										</Card.Content>
 										<Card.Content extra>
-											<Link href={'/chart?title=opacas'}>
+											<Link href={'/chart?title=Opaca'}>
 												<a>Mas Información</a>
 											</Link>
 										</Card.Content>
@@ -79,7 +79,7 @@ const Main = props => {
 										  <Card.Header  style={{ 'color': 'white' }}>Mixtas</Card.Header>
 										</Card.Content>
 										<Card.Content extra>
-											<Link href={'/chart?title=mixtas'}>
+											<Link href={'/chart?title=Mixta'}>
 												<a>Mas Información</a>
 											</Link>
 										</Card.Content>

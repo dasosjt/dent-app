@@ -10,8 +10,8 @@ import {
 
 export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
 	<div style={{
-		marginBottom: 50,
-		paddingTop: 15
+		marginBottom: 25,
+		paddingTop: 10
 	}}>
 		<Grid style={{ backgroundColor:'white' }}>
 			<Grid.Row columns={3}>

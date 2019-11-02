@@ -61,7 +61,7 @@ def login():
 def get_injuries():
 	injuries = [
 		injury.as_dict() 
-		for injury in g.s.query(m.Injury).all()[:5]
+		for injury in g.s.query(m.Injury).all()[:10]
 	]
 
 	return jsonify(injuries)
@@ -341,6 +341,7 @@ def filter_injury(type, filter):
 	if type and type != 'todas':
 		query = query.filter(m.Injury._type == type)
 
+	print(type)
 	print(query)
 
 	print(query.all())
