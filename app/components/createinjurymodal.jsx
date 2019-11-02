@@ -77,12 +77,24 @@ export default class CreateInjuryModal extends Component {
     }
 
     handleChange = (e, { name, value, checked }) => {
+        console.log('handleChange')
+        console.log(`${name} ${value} ${checked}`)
         if (value === undefined && checked !== undefined) {
             value = checked;
         }
 
-        if (name === 'Asociada'){
-            this.checkTooth(name)
+        if (name === 'op4' && value === 'Asociada') {
+            this.checkTooth(value)
+        } else if (name === 'op4' && value === 'No Asociado') {
+            this.removeToothByType('Asociada')
+        } else if (name === 'op6' && value === 'Con Desplazamiento Piezas Dentarias') {
+            this.checkTooth(value)
+        } else if (name === 'op6' && value === 'Sin Desplazamiento Piezas Dentarias') {
+            this.removeToothByType('Con Desplazamiento Piezas Dentarias')
+        } else if (name === 'op8' && value === 'Pieza Incluida') {
+            this.checkTooth(value)
+        } else if (name === 'op8' && value === 'Pieza No Incluida') {
+            this.removeToothByType('Pieza Incluida')
         }
 
         this.setState({ [name]: value })
@@ -96,6 +108,16 @@ export default class CreateInjuryModal extends Component {
             locations[name]['_type'] = value['type']
 
             this.setState({ 'locations':  locations })
+        }
+    }
+
+    handleToothsChange = (e, { name, value }) => {
+        if(name <= this.state.tooths.length - 1){
+            let tooths = [...this.state.tooths]
+
+            tooths[name]['location'] = value
+
+            this.setState({ 'tooths':  tooths })
         }
     }
 
@@ -166,35 +188,26 @@ export default class CreateInjuryModal extends Component {
         })
     }
 
-    addTooth = e => {
-        e.preventDefault()
-        this.setState(state => ({
-            ...state,
-            'tooths': [
-                ...state.tooths,
-                { ...DEFAULT_TOOTH }
-            ]
-        }))
-    }
-
-    removeTooth = e => {
+    addTooth = currentType => e => {
         e.preventDefault()
         this.setState(state => {
-            const tooths = [ ...state.tooths ]
-            tooths.pop()
+            let new_tooth = Object.assign({}, DEFAULT_TOOTH)
+            new_tooth['_type'] = currentType
+            new_tooth['index'] = state.tooths.length
 
-            if(tooths.length > 0){
-                return {
-                    ...state,
-                    tooths,
-                }
-            } else {
-                return {
-                    ...state,
-                    'tooths': state.tooths,
-                }
+            return {
+                ...state,
+                'tooths': [
+                    ...state.tooths,
+                    { ...new_tooth }
+                ]
             }
         })
+    }
+
+    removeTooth = index => e => {
+        e.preventDefault()
+        this.removeToothByIndex(index)
     }
 
     handleSubmit(){
@@ -216,24 +229,78 @@ export default class CreateInjuryModal extends Component {
     }
 
     checkTooth(currentType){
-        console.log(this.state.tooths)
         const tooths = this.state.tooths.filter(
             tooth => tooth._type === currentType
         )
-        console.log(tooths)
 
         if (tooths.length === 0) {
-            let new_tooth = Object.assign({}, DEFAULT_TOOTH)
-            new_tooth['_type'] = currentType
-
-            this.setState(state => ({
-                ...state,
-                'tooths': [
-                    ...state.tooths,
-                    { ...DEFAULT_TOOTH }
-                ]
-            }))
+            this.setState(state => {
+                let new_tooth = Object.assign({}, DEFAULT_TOOTH)
+                new_tooth['_type'] = currentType
+                new_tooth['index'] = state.tooths.length
+                return {
+                    ...state,
+                    'tooths': [
+                        ...state.tooths,
+                        { ...new_tooth }
+                    ]
+                }
+            })
         }
+    }
+
+    removeToothByType(currentType){
+        this.setState(state => {
+            const tooths = this.state.tooths.filter(
+                tooth => tooth._type !== currentType
+            )
+
+            return {
+                ...state,
+                'tooths': this.updateToothsIndex(tooths)
+            }
+        })
+    }
+
+    removeToothByTypeAndEmpty(currentType, cb){
+        this.setState(state => {
+            let tooths = this.state.tooths.filter(
+                tooth => {
+                    console.log(tooth.location)
+                    return tooth._type !== currentType && tooth.location === ""
+                }
+            )
+
+            return {
+                ...state,
+                'tooths': this.updateToothsIndex(tooths)
+            }
+        }, cb())
+    }
+
+    removeToothByIndex(index) {
+        this.setState(state => {
+            const tooths = this.state.tooths.filter(
+                tooth => tooth.index !== index
+            )
+
+            return {
+                ...state,
+                'tooths': this.updateToothsIndex(tooths)
+            }
+        })
+    }
+
+    updateToothsIndex(tooths) {
+        const newTooths = [...tooths.map(
+            (tooth, index) => { 
+                tooth.index = index
+                return tooth
+            }
+        )]
+
+        console.log(newTooths)
+        return newTooths
     }
 
     render(){
@@ -320,10 +387,10 @@ export default class CreateInjuryModal extends Component {
                                 checked={this.state.op1 === 'Única'}
                                 onChange={this.handleChange}/>
                             <Form.Radio
-                                label='Multiple'
+                                label='Múltiple'
                                 name='op1'
-                                value='Multiple'
-                                checked={this.state.op1 === 'Multiple'}
+                                value='Múltiple'
+                                checked={this.state.op1 === 'Múltiple'}
                                 onChange={this.handleChange}/>
                         </Form.Group>
                         <Form.Group inline>
@@ -389,7 +456,6 @@ export default class CreateInjuryModal extends Component {
                                     { 
                                         obj.location === 'Mandíbula' ?
                                             <Form.Field
-                                                required
                                                 control={Checkbox}
                                                 label='Cuerpo'
                                                 name={index}
@@ -466,15 +532,16 @@ export default class CreateInjuryModal extends Component {
                                     <Form.Field
                                         required 
                                         control={Select}  
-                                        name={index}
+                                        name={obj.index}
                                         label='Pieza Dental'
                                         options={this.teethOptions}
-                                        onChange={this.handleTeethChange}/>
+                                        onChange={this.handleToothsChange}/>
                                     <br key={'br' + index}/>
                                     {
                                         controlOnlyToLast(
-                                            index, this.state.tooths, 
-                                            this.addTooth, this.removeTooth
+                                            obj.index, this.state.tooths, 
+                                            this.addTooth('Asociada'),
+                                            this.removeTooth(obj.index)
                                         )
                                     }
                                 </Form.Group>
@@ -519,19 +586,35 @@ export default class CreateInjuryModal extends Component {
                                 value='Sin Desplazamiento Piezas Dentarias'
                                 checked={this.state.op6 === 'Sin Desplazamiento Piezas Dentarias'}
                                 onChange={this.handleChange}/>
-                            {
-                                this.state.op6 === 'Con Desplazamiento Piezas Dentarias' ? 
-                                <Form.Field
-                                    required 
-                                    control={Select} 
-                                    label='Pieza'
-                                    placeholder='Seleccionar Pieza Dental'
-                                    name='op6_super'
-                                    options={this.teethOptions}
-                                    onChange={this.handleChange}/> :
-                                null
-                            }
+                            
                         </Form.Group>
+                        {
+                            this.state.op6 === 'Con Desplazamiento Piezas Dentarias' ? 
+                            this.state.tooths.filter(
+                                t => t._type === 'Con Desplazamiento Piezas Dentarias'
+                            ).map((obj, index) => (
+                                <Form.Group
+                                    key={'tooth' + index}
+                                    inline>
+                                    <Form.Field
+                                        required 
+                                        control={Select}  
+                                        name={obj.index}
+                                        label='Pieza Dental'
+                                        options={this.teethOptions}
+                                        onChange={this.handleToothsChange}/>
+                                    <br key={'br' + index}/>
+                                    {
+                                        controlOnlyToLast(
+                                            obj.index, this.state.tooths, 
+                                            this.addTooth('Con Desplazamiento Piezas Dentarias'),
+                                            this.removeTooth(obj.index)
+                                        )
+                                    }
+                                </Form.Group>
+                                )
+                            ) : null
+                        }
                         <Form.Group inline>
                             <Form.Radio
                                 label='Con Expansión de Corticales'
@@ -559,19 +642,34 @@ export default class CreateInjuryModal extends Component {
                                 value='Pieza No Incluida'
                                 checked={this.state.op8 === 'Pieza No Incluida'}
                                 onChange={this.handleChange}/>
-                            {
-                                this.state.op8 === 'Pieza Incluida' ? 
-                                <Form.Field
-                                    required 
-                                    control={Select} 
-                                    label='Pieza'
-                                    placeholder='Seleccionar Pieza Dental'
-                                    name='op8_super'
-                                    options={this.teethOptions}
-                                    onChange={this.handleChange}/> :
-                                null
-                            }
                         </Form.Group>
+                        {
+                            this.state.op8 === 'Pieza Incluida' ? 
+                            this.state.tooths.filter(
+                                t => t._type === 'Pieza Incluida'
+                            ).map((obj, index) => (
+                                <Form.Group
+                                    key={'tooth' + index}
+                                    inline>
+                                    <Form.Field
+                                        required 
+                                        control={Select}  
+                                        name={obj.index}
+                                        label='Pieza Dental'
+                                        options={this.teethOptions}
+                                        onChange={this.handleToothsChange}/>
+                                    <br key={'br' + index}/>
+                                    {
+                                        controlOnlyToLast(
+                                            obj.index, this.state.tooths, 
+                                            this.addTooth('Pieza Incluida'),
+                                            this.removeTooth(obj.index)
+                                        )
+                                    }
+                                </Form.Group>
+                                )
+                            ) : null
+                        }
                         <Form.Group inline>
                             <label><b>Diagnóstico Diferencial</b></label>
                             <Form.Field
@@ -580,7 +678,6 @@ export default class CreateInjuryModal extends Component {
                                 name='dif1'
                                 onChange={this.handleChange}/>
                             <Form.Field
-                                required 
                                 control={Input}
                                 name='dif2'
                                 onChange={this.handleChange}/>
@@ -629,5 +726,5 @@ const controlOnlyToLast = (index, list, add, remove) => (
             onClick={remove}>
             <Icon name='x'/>
         </Button>
-    </div>: null
+    </div> : null
 )

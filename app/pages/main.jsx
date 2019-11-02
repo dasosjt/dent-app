@@ -36,14 +36,6 @@ const Main = props => {
 		.then(response => getInjuries())
 		.catch(error => setError(error.response))
 
-	const transRegister = register => (
-		{
-			'pi': 'PI',
-			'pt': 'PT',
-			'pce': 'PCE'
-		}[register]
-	)
-
 	const onLogout = () => logout()
 
 	return (
@@ -126,7 +118,7 @@ const Main = props => {
 																<List.Content>
 																	{
 																		' ID: ' + injury.register_num +
-																		' Registro:' + transRegister(injury.register) +
+																		' Registro:' + injury.register +
 																		' Paciente: ' + injury.name + ' ' + injury.lastname
 																	}
 																</List.Content>

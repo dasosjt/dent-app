@@ -60,7 +60,7 @@ class Injury(Base, Mixin):
     op8 = Column(String, nullable=False)
     #op8_super = Column(String, nullable=True)
     dif1 = Column(String, nullable=False)
-    dif2 = Column(String, nullable=False)
+    dif2 = Column(String, nullable=True)
     dif3 = Column(String, nullable=True)
 
     not_default_attr = [ 'injury_id' ]

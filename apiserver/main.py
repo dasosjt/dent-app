@@ -72,7 +72,11 @@ def create_injury():
 	location_data = data['locations']
 	tooth_data = data['tooths']
 
-	injury = m.Injury.init(data)
+	injury = m.Injury(**{ 
+		k: data[k] 
+		for k in m.Mixin.default_attr(m.Injury)
+		if k in data
+	})
 
 	g.s.add(injury)
 	g.s.flush()
@@ -80,7 +84,7 @@ def create_injury():
 	for _location in location_data:
 		attr_dict = {
 			k: _location[k]
-			for k in m.InjuryLocation.default_attr()
+			for k in m.Mixin.default_attr(m.InjuryLocation)
 			if k in _location
 		}
 
@@ -93,13 +97,13 @@ def create_injury():
 	for _tooth in tooth_data:
 		attr_dict = {
 			k: _tooth[k]
-			for k in m.ToothLocation.default_attr()
+			for k in m.Mixin.default_attr(m.Tooth)
 			if k in _tooth
 		}
 
 		attr_dict['injury_id'] = injury.injury_id
 
-		tooth = m.Injurytooth(**attr_dict)
+		tooth = m.Tooth(**attr_dict)
 
 		g.s.add(tooth)
 
@@ -148,6 +152,18 @@ def filter_injury(type, filter):
 			m.Injury.injury_id == m.InjuryLocation.injury_id
 		)
 		.group_by(m.InjuryLocation.position)
+	)
+
+	tooth_location = (
+		query.query(
+			m.Tooth.location, 
+			sql.func.count(m.Tooth.location)
+		)
+		.join(
+			m.Injury,
+			m.Injury.injury_id == m.Tooth.injury_id
+		)
+		.group_by(m.Tooth.location)
 	)
 	
 	if filter and filter == 'location_sub':
@@ -287,6 +303,21 @@ def filter_injury(type, filter):
 			)
 			.group_by(m.InjuryLocation._type)
 		)
+	elif filter and filter == 'op4_super':
+		query = (
+			tooth_location
+				.filter(m.Tooth._type == 'Asociada')
+		)
+	elif filter and filter == 'op6_super':
+		query = (
+			tooth_location
+				.filter(m.Tooth._type == 'Con Desplazamiento Piezas Dentarias')
+		)
+	elif filter and filter == 'op8_super':
+		query = (
+			tooth_location
+				.filter(m.Tooth._type == 'Pieza Incluida')
+		)
 	elif filter:
 		query = (
 			query.query(
@@ -307,7 +338,7 @@ def filter_injury(type, filter):
 		}
 	}
 
-	if type:
+	if type and type != 'todas':
 		query = query.filter(m.Injury._type == type)
 
 	print(query)
