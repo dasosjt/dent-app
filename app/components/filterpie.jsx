@@ -8,16 +8,22 @@ import {
 } from 'recharts'
 
 export default props => (
-  <div style={{ width: '100%', height: 400 }}>
+  <div style={{ width: '100%', height: 500 }}>
     <ResponsiveContainer>
       <PieChart>
         <Pie 
           dataKey="value" 
-          isAnimationActive={false} 
+          isAnimationActive={true} 
           data={props.data} 
-          fill="#8884d8" 
+          fill="#8884d8"
           label/>
-        <Legend verticalAlign='bottom'/>
+        <Legend 
+          verticalAlign="bottom"
+          layout="vertical"
+          align="right"
+          wrapperStyle={{
+              paddingLeft: "15px"
+          }}/>
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>

@@ -70,8 +70,8 @@ export default withAuthSync(withRouter((props) => {
             <HeaderLayout 
                 headerTitle={headerTitle}/>
             <Grid>
-                <Grid.Column width={1}/>
-                <Grid.Column width={14}>
+                <Grid.Column width={2}/>
+                <Grid.Column width={12}>
                     <Grid>
                         <Grid.Column streched width={16}>
                             <Segment inverted color='purple' inline>
@@ -91,21 +91,24 @@ export default withAuthSync(withRouter((props) => {
                                             value.title
                                         )
                                     }/>
-                                <Dropdown
-                                    icon='filter'
-                                    floating
-                                    labeled
-                                    button
-                                    options={subMenuItems}
-                                    className='icon'
-                                    onChange={(e, { value }) => 
-                                        handleItemClick(
-                                            value.filter, 
-                                            value.sub,
-                                            value.chartTitle,
-                                            value.title
-                                        )
-                                    }/>
+                                {
+                                    subMenuItems && subMenuItems.length > 0 ?
+                                    <Dropdown
+                                        icon='filter'
+                                        floating
+                                        labeled
+                                        button
+                                        options={subMenuItems}
+                                        className='icon'
+                                        onChange={(e, { value }) => 
+                                            handleItemClick(
+                                                value.filter, 
+                                                value.sub,
+                                                value.chartTitle,
+                                                value.title
+                                            )
+                                        }/> : null
+                                }
                                 <Segment inverted style={{
                                         float: 'right'
                                     }}>
@@ -119,7 +122,7 @@ export default withAuthSync(withRouter((props) => {
                         </Grid.Column> 
                     </Grid>
                 </Grid.Column>
-                <Grid.Column width={1}/>
+                <Grid.Column width={2}/>
             </Grid>
         </div>
     )

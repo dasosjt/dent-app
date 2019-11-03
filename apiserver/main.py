@@ -357,4 +357,17 @@ def filter_injury(type, filter):
 
 		results.append({ 'name': str(name), 'value': result[1] })
 
+	total = sum(map(lambda r: r['value'], results))
+
+	print(results)
+	print('results')
+
+	for index, result in enumerate(results):
+		print(result)
+		results[index]['name'] = '{}      %{}'.format(
+			result['name'],
+			round((result['value']/total)*100, 2)
+		)
+	print(results)
+
 	return jsonify(results)
