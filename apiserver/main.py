@@ -204,11 +204,11 @@ def filter_injury(type, filter):
 		)
 	elif filter and filter == 'location_cigomatico_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Hueso Cigomatico'
+			m.InjuryLocation.location == 'Hueso Cigomático'
 		)
 	elif filter and filter == 'location_fosa_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Fosa Nasal'
+			m.InjuryLocation.location == 'Espacio de Fosas Nasales'
 		)
 	elif filter and filter == 'location_hioides_position':
 		query = location_sub_position.filter(
@@ -224,37 +224,19 @@ def filter_injury(type, filter):
 		)
 	elif filter and filter == 'location_mandibula_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Mandibula'
-		)
-	##Agregar a localizacion de maxilar
-	elif filter and filter == 'location_posterior_position':
-		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Pared Posterior'
-		)
-	##Agregar a localizacion de maxilar
-	elif filter and filter == 'location_anterior_position':
-		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Pared Anterior'
-		)
-	elif filter and filter == 'location_techo_position':
-		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Techo'
-		)
-	elif filter and filter == 'location_piso_position':
-		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Piso'
+			m.InjuryLocation.location == 'Mandíbula'
 		)
 	elif filter and filter == 'location_oro_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Orofaringe'
+			m.InjuryLocation.location == 'Espacio de Orofaringe'
 		)
 	elif filter and filter == 'location_naso_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Nasofaringe'
+			m.InjuryLocation.location == 'Espacio de Nasofaringe'
 		)
 	elif filter and filter == 'location_hipo_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Hipofaringe'
+			m.InjuryLocation.location == 'Espacio de Hipofaringe'
 		)
 	elif filter and filter == 'location_branch_mandibula':
 		query = (
@@ -266,7 +248,7 @@ def filter_injury(type, filter):
 				m.Injury,
 				m.Injury.injury_id == m.InjuryLocation.injury_id
 			)
-			.filter(m.InjuryLocation.location == 'Mandibula')
+			.filter(m.InjuryLocation.location == 'Mandíbula')
 			.group_by(m.InjuryLocation.branch_mandibula)
 		)
 	elif filter and filter == 'location_body_mandibula':
@@ -279,7 +261,7 @@ def filter_injury(type, filter):
 				m.Injury,
 				m.Injury.injury_id == m.InjuryLocation.injury_id
 			)
-			.filter(m.InjuryLocation.location == 'Mandibula')
+			.filter(m.InjuryLocation.location == 'Mandíbula')
 			.group_by(m.InjuryLocation.body_mandibula)
 		)
 	elif filter and filter == 'location_sinus_maxilar':

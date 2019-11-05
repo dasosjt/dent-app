@@ -154,25 +154,25 @@ export const LOCATION = index => [
     },
     {
         key: 'ae-oro' + index,
-        text: 'Orofaringe',
+        text: 'Espacio de Orofaringe',
         value: {
-            'name': 'Orofaringe',
+            'name': 'Espacio de Orofaringe',
             'type': 'Aéreo'
         }
     },
     {
         key: 'ae-naso' + index,
-        text: 'Nasofaringe',
+        text: 'Espacio de Nasofaringe',
         value: {
-            'name': 'Nasofaringe',
+            'name': 'Espacio de Nasofaringe',
             'type': 'Aéreo'
         }
     },
     {
         key: 'ae-hipo' + index,
-        text: 'Hipofaringe',
+        text: 'Espacio de Hipofaringe',
         value: {
-            'name': 'Hipofaringe',
+            'name': 'Espacio de Hipofaringe',
             'type': 'Aéreo'
         }
     },
@@ -387,19 +387,19 @@ export const MENUITEMS = currentType => [
                         chartTitle: `Lesiones ${currentType} en espacios aéreos`,
                     },
                     {
-                        title: 'Orofaringe',
+                        title: 'Espacio de Orofaringe',
                         filter: 'location_oro_position',
-                        chartTitle: `Lesiones ${currentType} en orofaringe`,
+                        chartTitle: `Lesiones ${currentType} en espacio de orofaringe`,
                     },
                     {
-                        title: 'Nasofaringe',
+                        title: 'Espacio de Nasofaringe',
                         filter: 'location_naso_position',
-                        chartTitle: `Lesiones ${currentType} en nasofaringe`,
+                        chartTitle: `Lesiones ${currentType} en espacio de nasofaringe`,
                     },
                     {
-                        title: 'Hipofaringe',
+                        title: 'Espacio de Hipofaringe',
                         filter: 'location_hipo_position',
-                        chartTitle: `Lesiones ${currentType} en hipofaringe`,
+                        chartTitle: `Lesiones ${currentType} en espacio de hipofaringe`,
                     },
                 ]
             },
@@ -442,24 +442,24 @@ export const MENUITEMS = currentType => [
     {
         title: 'Desplazamiento',
         filter: 'op6',
-        chartTitle: `Lesiones ${currentType} provocando desplazamiento de piezas dentales`,
+        chartTitle: `Lesiones ${currentType} con desplazamiento de piezas dentales`,
         sub: [
                 {
                     title: 'Desplazamiento',
                     filter: 'op6',
-                    chartTitle: `Lesiones ${currentType} provocando desplazamiento de piezas dentales`,
+                    chartTitle: `Lesiones ${currentType} con desplazamiento de piezas dentales`,
                 },
                 {
                     title: 'Desplazamiento Pieza Dental',
                     filter: 'op6_super',
-                    chartTitle: `Lesiones ${currentType} provocando desplazamiento de piezas dentales`,
+                    chartTitle: `Lesiones ${currentType} con desplazamiento de piezas dentales`,
                 },
         ]
     },
     {
         title: 'Expansión de Corticales',
         filter: 'op7',
-        chartTitle: `Lesiones ${currentType} según expansión de corticales`,
+        chartTitle: `Lesiones ${currentType} con expansión de corticales`,
     },
     {
         title: 'Pieza Incluida',
@@ -491,6 +491,6 @@ export const MENUITEMS = currentType => [
     {
         title: 'Diagnóstico Diferencial 3',
         filter: 'dif3',
-        chartTitle: `Diagnóstico diferencial 1 de lesiones ${currentType}`,
+        chartTitle: `Diagnóstico diferencial 3 de lesiones ${currentType}`,
     },
 ]

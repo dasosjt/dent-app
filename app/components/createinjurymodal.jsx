@@ -474,7 +474,6 @@ export default class CreateInjuryModal extends Component {
                                     { 
                                         obj.location === 'Maxilar' ?
                                             <Form.Field
-                                                required
                                                 control={Checkbox}
                                                 label='Seno Maxilar'
                                                 name={index}
