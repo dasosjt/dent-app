@@ -88,6 +88,7 @@ class InjuryLocation(Base, Mixin):
     branch_mandibula = Column(String, nullable=True)
     body_mandibula = Column(Boolean, nullable=True)
     sinus_maxilar = Column(Boolean, nullable=True)
+    sinus_maxilar_wall = Column(String, nullable=True)
 
     injury_id = Column(Integer, ForeignKey('injury.injury_id'))
 

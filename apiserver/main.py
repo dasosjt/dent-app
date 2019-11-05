@@ -184,11 +184,15 @@ def filter_injury(type, filter):
 		)
 	elif filter and filter == 'location_tiroides_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Glandula Tiroides'
+			m.InjuryLocation.location == 'Glándula Tiroides'
+		)
+	elif filter and filter == 'location_blnariz_position':
+		query = location_sub_position.filter(
+			m.InjuryLocation.location == 'Tejido Blando de Nariz'
 		)
 	elif filter and filter == 'location_amigdala_position':
 		query = location_sub_position.filter(
-			m.InjuryLocation.location == 'Amigdala'
+			m.InjuryLocation.location == 'Amígdala'
 		)
 	elif filter and filter == 'location_nasal_position':
 		query = location_sub_position.filter(
@@ -290,6 +294,19 @@ def filter_injury(type, filter):
 			)
 			.filter(m.InjuryLocation.location == 'Maxilar')
 			.group_by(m.InjuryLocation.sinus_maxilar)
+		)
+	elif filter and filter == 'location_sinus_maxilar_wall':
+		query = (
+			query.query(
+				m.InjuryLocation.sinus_maxilar_wall, 
+				sql.func.count(m.InjuryLocation.sinus_maxilar_wall)
+			)
+			.join(
+				m.Injury,
+				m.Injury.injury_id == m.InjuryLocation.injury_id
+			)
+			.filter(m.InjuryLocation.location == 'Maxilar')
+			.group_by(m.InjuryLocation.sinus_maxilar_wall)
 		)
 	elif filter and filter == 'location_div':
 		query = (

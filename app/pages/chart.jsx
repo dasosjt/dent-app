@@ -31,6 +31,8 @@ export default withAuthSync(withRouter((props) => {
     let headerTitleChart = ''
     if (headerTitle !== 'Todas') {
         headerTitleChart = headerTitle
+    } else {
+        headerTitleChart = 'Roentgenológicas'
     }
     const menu = MENUITEMS(headerTitleChart).map(translateMenu)
     

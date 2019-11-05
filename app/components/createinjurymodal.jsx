@@ -16,7 +16,7 @@ import {
     DEFAULT_LOCATION, DEFAULT_TOOTH,
     REGISTER, GENDER, _TYPE,
     FORM, OP3, LOCATION, POSITION,
-    MANDIBULA_BRANCH, OP5_TYPE
+    MANDIBULA_BRANCH, OP5_TYPE, SINUS_MAXILAR_WALL
 } from '../configuration/options'
 
 const DEFAULT_INIT_STATE = {
@@ -44,6 +44,7 @@ export default class CreateInjuryModal extends Component {
         this.handleBranchChange = this.handleBranchChange.bind(this)
         this.handleBodyChange = this.handleBodyChange.bind(this)
         this.handleSinusChange = this.handleSinusChange.bind(this)
+        this.handleWallChange = this.handleWallChange.bind(this)
     }
 
     initTeethOptions(){
@@ -106,8 +107,10 @@ export default class CreateInjuryModal extends Component {
 
             locations[name]['location'] = value['name']
             locations[name]['_type'] = value['type']
+            locations[name]['body_mandibula'] = false
+            locations[name]['sinus_maxilar'] = false
 
-            this.setState({ 'locations':  locations })
+            this.setState({ 'locations':  [...locations] })
         }
     }
 
@@ -117,7 +120,7 @@ export default class CreateInjuryModal extends Component {
 
             tooths[name]['location'] = value
 
-            this.setState({ 'tooths':  tooths })
+            this.setState({ 'tooths':  [...tooths] })
         }
     }
 
@@ -126,7 +129,7 @@ export default class CreateInjuryModal extends Component {
             let locations = this.state.locations
             locations[name]['position'] = value
 
-            this.setState({ 'locations':  locations })
+            this.setState({ 'locations':  [...locations] })
         }
     }
 
@@ -135,7 +138,16 @@ export default class CreateInjuryModal extends Component {
             let locations = this.state.locations
             locations[name]['branch_mandibula'] = value
 
-            this.setState({ 'locations':  locations })
+            this.setState({ 'locations':  [...locations] })
+        }
+    }
+
+    handleWallChange = (e, { name,  value }) => {
+        if(name <= this.state.locations.length - 1){
+            let locations = this.state.locations
+            locations[name]['sinus_maxilar_wall'] = value
+
+            this.setState({ 'locations':  [...locations] })
         }
     }
 
@@ -144,7 +156,7 @@ export default class CreateInjuryModal extends Component {
             let locations = this.state.locations
             locations[name]['body_mandibula'] = checked
 
-            this.setState({ 'locations':  locations })
+            this.setState({ 'locations':  [...locations] })
         }
     }
 
@@ -153,7 +165,7 @@ export default class CreateInjuryModal extends Component {
             let locations = this.state.locations
             locations[name]['sinus_maxilar'] = checked
 
-            this.setState({ 'locations':  locations })
+            this.setState({ 'locations':  [...locations] })
         }
     }
 
@@ -180,10 +192,7 @@ export default class CreateInjuryModal extends Component {
                     locations,
                 }
             } else {
-                return {
-                    ...state,
-                    'locations': state.locations,
-                }
+                return {...state}
             }
         })
     }
@@ -220,7 +229,7 @@ export default class CreateInjuryModal extends Component {
                 body: JSON.stringify(this.state)
              })
             .then((response) => {
-                this.setState(DEFAULT_INIT_STATE)
+                this.setState({...DEFAULT_INIT_STATE})
                 this.handleClose()
             })
             .catch((error) => {
@@ -467,9 +476,19 @@ export default class CreateInjuryModal extends Component {
                                             <Form.Field
                                                 required
                                                 control={Checkbox}
-                                                label='Seno Maxilar' 
+                                                label='Seno Maxilar'
                                                 name={index}
                                                 onChange={this.handleSinusChange}/> : null
+                                    }
+
+                                    { 
+                                        obj.sinus_maxilar ?
+                                            <Form.Field
+                                                control={Select}
+                                                label='Pared'
+                                                name={index}
+                                                options={SINUS_MAXILAR_WALL(index)}
+                                                onChange={this.handleWallChange}/> : null
                                     }
 
                                     <br key={'br' + index}/>
@@ -627,6 +646,12 @@ export default class CreateInjuryModal extends Component {
                                 name='op7'
                                 value='Sin Expansión de Corticales'
                                 checked={this.state.op7 === 'Sin Expansión de Corticales'}
+                                onChange={this.handleChange}/>
+                            <Form.Radio
+                                label='No aplica'
+                                name='op7'
+                                value='No aplica'
+                                checked={this.state.op7 === 'No aplica'}
                                 onChange={this.handleChange}/>
                         </Form.Group>
                         <Form.Group inline>

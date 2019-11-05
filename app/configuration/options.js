@@ -4,7 +4,8 @@ export const DEFAULT_LOCATION = {
     '_type': '',
     'branch_mandibula': null,
     'body_mandibula': false,
-    'sinus_maxilar': false
+    'sinus_maxilar': false,
+    'sinus_maxilar_wall': null
 }
 
 export const DEFAULT_TOOTH = {
@@ -151,42 +152,6 @@ export const LOCATION = index => [
             'type': 'Duro'
         }
     },
-    //3er nivel de maxilar
-    {
-        key: 'du-paredpos' + index,
-        text: 'Pared Posterior',
-        value: {
-            'name': 'Pared Posterior',
-            'type': 'Duro'
-        }
-    },
-    //3er nivel de maxilar
-    {
-        key: 'du-paredant' + index,
-        text: 'Pared Anterior',
-        value: {
-            'name': 'Pared Anterior',
-            'type': 'Duro'
-        }
-    },
-    //4to nivel de maxilar
-    {
-        key: 'du-techo' + index,
-        text: 'Techo',
-        value: {
-            'name': 'Techo',
-            'type': 'Duro'
-        }
-    },
-    //4to nivel de maxilar
-    {
-        key: 'du-piso' + index,
-        text: 'Piso',
-        value: {
-            'name': 'Piso',
-            'type': 'Duro'
-        }
-    },
     {
         key: 'ae-oro' + index,
         text: 'Orofaringe',
@@ -220,7 +185,7 @@ export const POSITION = index => [
 
 export const MANDIBULA_BRANCH = index => [
     { key: 'rama' + index, text: 'Rama Mandibular', value: 'Rama Mandibular' },
-    { key: 'con' + index, text: 'Cóndilo Mandibular', value: 'Condilo Mandibular' },
+    { key: 'con' + index, text: 'Cóndilo Mandibular', value: 'Cóndilo Mandibular' },
     { key: 'apo' + index, text: 'Apófisis Coronoides', value: 'Apófisis Coronoides' }
 ]
 
@@ -228,6 +193,13 @@ export const OP5_TYPE = [
     { key: 'r', text: 'Raices Dentarias', value: 'Raices Dentarias' },
     { key: 'c', text: 'Coronas Dentarias', value: 'Coronas Dentarias' },
     { key: 'o', text: 'Óseas', value: 'Óseas' }
+]
+
+export const SINUS_MAXILAR_WALL = index => [
+    { key: 'ant' + index, text: 'Pared Anterior', value: 'Pared Anterior' },
+    { key: 'post' + index, text: 'Pared Posterior', value: 'Pared Posterior' },
+    { key: 'techo' + index, text: 'Techo', value: 'Techo' },
+    { key: 'piso' + index, text: 'Piso', value: 'Piso' }
 ]
 
 export const MENUITEMS = currentType => [
@@ -254,7 +226,7 @@ export const MENUITEMS = currentType => [
     {
         title: 'Unilocular-Multilocular',
         filter: 'op2',
-        chartTitle: `Lesiones ${currentType} según género`,
+        chartTitle: `Lesiones ${currentType} según compartimientos`,
     },
     {
         title: 'Formas',
@@ -367,7 +339,7 @@ export const MENUITEMS = currentType => [
                             },
                             {
                                 title: 'Partes del Seno Maxilar',
-                                filter: 'location_sinus_maxilar_parts',
+                                filter: 'location_sinus_maxilar_wall',
                                 chartTitle: `Lesiones ${currentType} en paredes del seno maxilar`,
                             },
                         ]
