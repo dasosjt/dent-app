@@ -42,8 +42,16 @@ export default ({ headerTitle =  'LESIONES ROENTGENOLÓGICAS' }) => (
 						style={{ margin: 'auto' }}
 						width={65}
 						height={65}/>
-				</Grid.Column>        			
+				</Grid.Column>
 			</Grid.Row>
-		</Grid>		
+			<Grid.Row style={{
+				'color': 'black',
+				'textAlign': 'right',
+				'padding': '0 35px 0 0',
+				'display': 'block'
+			}}>
+				Adriana Olivar
+			</Grid.Row>
+		</Grid>
 	</div>
 )

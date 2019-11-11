@@ -38,7 +38,8 @@ export const FORM = [
     { key: 'tr', text: 'Trapezoidal', value: 'Trapezoidal' },
     { key: 'cu', text: 'Cuadrada', value: 'Cuadrada' },
     { key: 'ir', text: 'Irregular', value: 'Irregular' },
-    { key: 's', text: 'Semi Circular', value: 'Semi Circular' }
+    { key: 's', text: 'Semi Circular', value: 'Semi Circular' },
+    { key: 'l', text: 'Lineal', value: 'Lineal' }
 ]
 
 export const OP3 = [
@@ -180,7 +181,8 @@ export const LOCATION = index => [
 
 export const POSITION = index => [
     { key: 'de' + index, text: 'Derecho', value: 'Derecho' },
-    { key: 'di' + index, text: 'Izquierdo', value: 'Izquierdo' }
+    { key: 'di' + index, text: 'Izquierdo', value: 'Izquierdo' },
+    { key: 'bi' + index, text: 'Bilateral', value: 'Bilateral' }
 ]
 
 export const MANDIBULA_BRANCH = index => [
@@ -206,200 +208,200 @@ export const MENUITEMS = currentType => [
     {
         title: 'Edad',
         filter: 'age',
-        chartTitle: `Lesiones ${currentType} según edad`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según edad`,
     },
     {
         title: 'Género',
         filter: 'gender',
-        chartTitle: `Lesiones ${currentType} según género`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según género`,
     },
     {
         title: 'Tipo de Registro',
         filter: 'register',
-        chartTitle: `Lesiones ${currentType} según registro`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según registro`,
     },
     {
         title: 'Única-Múltiple',
         filter: 'op1',
-        chartTitle: `Lesiones ${currentType} según cantidad`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según cantidad`,
     },
     {
         title: 'Unilocular-Multilocular',
         filter: 'op2',
-        chartTitle: `Lesiones ${currentType} según compartimientos`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según compartimientos`,
     },
     {
         title: 'Formas',
         filter: 'form',
-        chartTitle: `Lesiones ${currentType} según forma`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según forma`,
     },
     {
         title: 'Bordes',
         filter: 'op3',
-        chartTitle: `Lesiones ${currentType} según bordes`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según tipo de bordes`,
     },
     {
         title: 'Localización',
         filter: 'location_sub',
-        chartTitle: `Lesiones ${currentType} según localización`,
+        chartTitle: `Prevalencia de lesiones ${currentType} según localización`,
         sub: [
             {
                 title: 'Localización',
                 filter: 'location_sub',
-                chartTitle: `Lesiones ${currentType} según localización`,
+                chartTitle: `Prevalencia de lesiones ${currentType} según localización`,
             },
             {
                 title: 'Tipo',
                 filter: 'location_div',
-                chartTitle: `Lesiones ${currentType} según tipo`,
+                chartTitle: `Prevalencía de lesiones ${currentType} según la estructura o espacio que ocupa`,
             },
             {
                 title: 'Tejido Blando',
                 filter: 'location_div_0',
-                chartTitle: `Lesiones ${currentType} en tejidos blandos`,
+                chartTitle: `Prevalencia de lesiones ${currentType} en tejidos blandos`,
                 sub: [
                     {
                         title: 'Tejido Blando',
                         filter: 'location_div_0',
-                        chartTitle: `Lesiones ${currentType} en tejidos blandos`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en tejidos blandos`,
                     },
                     {
                         title: 'Ligamento Estilohioideo',
                         filter: 'location_estilohioideo_position',
-                        chartTitle: `Lesiones ${currentType} en ligamento estilohioideo`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en ligamento estilohioideo`,
                     },
                     {
                         title: 'Lengua',
                         filter: 'location_lengua_position',
-                        chartTitle: `Lesiones ${currentType} en lengua`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en lengua`,
                     },
                     {
                         title: 'Glándula Tiroides',
                         filter: 'location_tiroides_position',
-                        chartTitle: `Lesiones ${currentType} en glándula tiroides`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en glándula tiroides`,
                     },
                     {
                         title: 'Amígdala',
                         filter: 'location_amigdala_position',
-                        chartTitle: `Lesiones ${currentType} en amígdala`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en amígdala`,
                     },
                     {
                         title: 'Tejido Blando de Nariz',
                         filter: 'location_blnariz_position',
-                        chartTitle: `Lesiones ${currentType} en tejido blando de nariz`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en tejido blando de nariz`,
                     },
                 ]
             },
             {
                 title: 'Tejido Duro',
                 filter: 'location_div_1',
-                chartTitle: `Lesiones ${currentType} en tejidos duros`,
+                chartTitle: `Prevalencia de lesiones ${currentType} en tejidos duros`,
                 sub: [
                     {
                         title: 'Tejido Duro',
                         filter: 'location_div_1',
-                        chartTitle: `Lesiones ${currentType} en tejidos duros`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en tejidos duros`,
                     },
                     {
                         title: 'Mandíbula',
                         filter: 'location_mandibula_position',
-                        chartTitle: `Lesiones ${currentType} en mandíbula`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en mandíbula`,
                         sub: [
                             {
                                 title: 'Mandíbula',
                                 filter: 'location_mandibula_position',
-                                chartTitle: `Lesiones ${currentType} en mandíbula`,
+                                chartTitle: `Prevalencia de lesiones ${currentType} en mandíbula`,
                             },
                             {
                                 title: 'Cuerpo de la Mandíbula',
                                 filter: 'location_body_mandibula',
-                                chartTitle: `Lesiones ${currentType} en cuerpo de la mandíbula`,
+                                chartTitle: `Prevalencia de lesiones ${currentType} en cuerpo de la mandíbula`,
                             },
                             {
                                 title: 'Rama Mandibular',
                                 filter: 'location_branch_mandibula',
-                                chartTitle: `Lesiones ${currentType} en rama mandibular`,
+                                chartTitle: `Prevalencia de lesiones ${currentType} en rama mandibular`,
                             },
                         ]
                     },
                     {
                         title: 'Maxilar',
                         filter: 'location_maxilar_position',
-                        chartTitle: `Lesiones ${currentType} en maxilar`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en maxilar`,
                         sub: [
                             {
                                 title: 'Maxilar',
                                 filter: 'location_maxilar_position',
-                                chartTitle: `Lesiones ${currentType} en maxilar`,
+                                chartTitle: `Prevalencia de lesiones ${currentType} en maxilar`,
                             },
                             {
                                 title: 'Seno Maxilar',
                                 filter: 'location_sinus_maxilar',
-                                chartTitle: `Lesiones ${currentType} en seno maxilar`,
+                                chartTitle: `Prevalencia de lesiones ${currentType} en seno maxilar`,
                             },
                             {
-                                title: 'Partes del Seno Maxilar',
+                                title: 'Peredes del Seno Maxilar',
                                 filter: 'location_sinus_maxilar_wall',
-                                chartTitle: `Lesiones ${currentType} en paredes del seno maxilar`,
+                                chartTitle: `Prevalencia de lesiones ${currentType} en paredes del seno maxilar`,
                             },
                         ]
                     },
                     {
                         title: 'Hueso Nasal',
                         filter: 'location_nasal_position',
-                        chartTitle: `Lesiones ${currentType} en hueso nasal`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en hueso nasal`,
                     },
                     {
                         title: 'Espacio de Fosas Nasales',
                         filter: 'location_fosa_position',
-                        chartTitle: `Lesiones ${currentType} en espacio de fosas nasales`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en espacio de fosas nasales`,
                     },
                     {
                         title: 'Hueso Temporal',
                         filter: 'location_temporal_position',
-                        chartTitle: `Lesiones ${currentType} en hueso temporal`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en hueso temporal`,
                     },
                     {
                         title: 'Hueso Cigomático',
                         filter: 'location_cigomatico_position',
-                        chartTitle: `Lesiones ${currentType} en hueso cigomático`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en hueso cigomático`,
                     },
                     {
                         title: 'Hueso Hioides',
                         filter: 'location_hioides_position',
-                        chartTitle: `Lesiones ${currentType} en hueso hioides`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en hueso hioides`,
                     },
                     {
                         title: 'Vertebras Cervicales',
                         filter: 'location_cervicales_position',
-                        chartTitle: `Lesiones ${currentType} en vertebras cervicales`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en vertebras cervicales`,
                     },
                 ]
             },
             {
                 title: 'Espacio Aéreo',
                 filter: 'location_div_2',
-                chartTitle: `Lesiones ${currentType} en espacios aéreos`,
+                chartTitle: `Prevalencia de lesiones ${currentType} en espacios aéreos`,
                 sub: [
                     {
                         title: 'Espacio Aéreo',
                         filter: 'location_div_2',
-                        chartTitle: `Lesiones ${currentType} en espacios aéreos`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en espacios aéreos`,
                     },
                     {
                         title: 'Espacio de Orofaringe',
                         filter: 'location_oro_position',
-                        chartTitle: `Lesiones ${currentType} en espacio de orofaringe`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en espacio de orofaringe`,
                     },
                     {
                         title: 'Espacio de Nasofaringe',
                         filter: 'location_naso_position',
-                        chartTitle: `Lesiones ${currentType} en espacio de nasofaringe`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en espacio de nasofaringe`,
                     },
                     {
                         title: 'Espacio de Hipofaringe',
                         filter: 'location_hipo_position',
-                        chartTitle: `Lesiones ${currentType} en espacio de hipofaringe`,
+                        chartTitle: `Prevalencia de lesiones ${currentType} en espacio de hipofaringe`,
                     },
                 ]
             },
@@ -408,89 +410,97 @@ export const MENUITEMS = currentType => [
     {
         title: 'Asociada',
         filter: 'op4',
-        chartTitle: `Lesiones ${currentType} asociadas a piezas dentales`,
+        chartTitle: `Prevalencia de lesiones ${currentType} asociadas a piezas dentales`,
         sub: [
             {
                 title: 'Asociada',
                 filter: 'op4',
-                chartTitle: `Lesiones ${currentType} asociadas a piezas dentales`,
+                chartTitle: `Prevalencia de lesiones ${currentType} asociadas a piezas dentales`,
             },
             {
                 title: 'Asociada Pieza Dental',
                 filter: 'op4_super',
-                chartTitle: `Lesiones ${currentType} asociadas a piezas dentales`,
+                chartTitle: `Frecuencia de piezas dentales asociadas por lesiones ${currentType}`,
             },
         ]
     },
     {
         title: 'Reabsorción',
         filter: 'op5',
-        chartTitle: `Lesiones ${currentType} provocando reabsorción`,
+        chartTitle: `Prevalencia de lesiones ${currentType} provocando reabsorción`,
         sub: [
             {
                 title: 'Reabsorción',
                 filter: 'op5',
-                chartTitle: `Lesiones ${currentType} provocando reabsorción`,
+                chartTitle: `Prevalencia de lesiones ${currentType} provocando reabsorción`,
             },
             {
                 title: 'Reabsorción Tipo',
                 filter: 'op5_type',
-                chartTitle: `Lesiones ${currentType} según tipo de reabsorción`,
+                chartTitle: `Prevalencia de lesiones ${currentType} según tipo de reabsorción`,
             },
         ]
     },
     {
         title: 'Desplazamiento',
         filter: 'op6',
-        chartTitle: `Lesiones ${currentType} con desplazamiento de piezas dentales`,
+        chartTitle: `Prevalencia de lesiones ${currentType} con desplazamiento de piezas dentales`,
         sub: [
                 {
                     title: 'Desplazamiento',
                     filter: 'op6',
-                    chartTitle: `Lesiones ${currentType} con desplazamiento de piezas dentales`,
+                    chartTitle: `Prevalencia de lesiones ${currentType} con desplazamiento de piezas dentales`,
                 },
                 {
                     title: 'Desplazamiento Pieza Dental',
                     filter: 'op6_super',
-                    chartTitle: `Lesiones ${currentType} con desplazamiento de piezas dentales`,
+                    chartTitle: `Frecuencia de piezas dentales desplazadas por lesiones ${currentType}`,
                 },
         ]
     },
     {
         title: 'Expansión de Corticales',
         filter: 'op7',
-        chartTitle: `Lesiones ${currentType} con expansión de corticales`,
+        chartTitle: `Prevalencia de lesiones ${currentType} con expansión de corticales`,
     },
     {
         title: 'Pieza Incluida',
         filter: 'op8',
-        chartTitle: `Lesiones ${currentType} con piezas dentales incluidas`,
+        chartTitle: `Prevalencia de lesiones ${currentType} con piezas dentales incluidas`,
         sub: [
             {
                 title: 'Pieza Incluida',
                 filter: 'op8',
-                chartTitle: `Lesiones ${currentType} con piezas dentales incluidas`,
+                chartTitle: `Prevalencia de lesiones ${currentType} con piezas dentales incluidas`,
             },
             {
                 title: 'Número de Pieza Incluida',
                 filter: 'op8_super',
-                chartTitle: `Lesiones ${currentType} con piezas dentales incluidas`,
+                chartTitle: `Frecuencia de piezas dentales incluidas por lesiones ${currentType}`,
             },
         ]
     },
     {
         title: 'Diagnóstico Diferencial 1',
         filter: 'dif1',
-        chartTitle: `Diagnóstico diferencial 1 de lesiones ${currentType}`,
+        chartTitle: `Prevalencia de Diagnóstico diferencial 1 de lesiones ${currentType}`,
     },
     {
         title: 'Diagnóstico Diferencial 2',
         filter: 'dif2',
-        chartTitle: `Diagnóstico diferencial 2 de lesiones ${currentType}`,
+        chartTitle: `Prevalencia de Diagnóstico diferencial 2 de lesiones ${currentType}`,
     },
     {
         title: 'Diagnóstico Diferencial 3',
         filter: 'dif3',
-        chartTitle: `Diagnóstico diferencial 3 de lesiones ${currentType}`,
+        chartTitle: `Prevalencia de Diagnóstico diferencial 3 de lesiones ${currentType}`,
     },
+]
+
+export const COLORS = [
+    "#0D855D",
+    "#1B8F68",
+    "#14CC8F",
+    "#3DFFBD",
+    "#1AFFBA"
 ]

@@ -30,9 +30,9 @@ export default withAuthSync(withRouter((props) => {
     const headerTitle = title.charAt(0).toUpperCase() + title.slice(1)
     let headerTitleChart = ''
     if (headerTitle !== 'Todas') {
-        headerTitleChart = headerTitle
+        headerTitleChart = headerTitle.toLowerCase()
     } else {
-        headerTitleChart = 'Roentgenológicas'
+        headerTitleChart = 'Roentgenológicas'.toLowerCase()
     }
     const menu = MENUITEMS(headerTitleChart).map(translateMenu)
     
@@ -74,33 +74,17 @@ export default withAuthSync(withRouter((props) => {
             <Grid>
                 <Grid.Column width={2}/>
                 <Grid.Column width={12}>
-                    <Grid>
-                        <Grid.Column streched width={16}>
-                            <Segment inverted color='purple' inline>
-                                <Dropdown
-                                    text={filterTitle}
-                                    icon='filter'
-                                    floating
-                                    labeled
-                                    button
-                                    options={menu}
-                                    className='icon'
-                                    onChange={(e, { value }) => 
-                                        handleItemClick(
-                                            value.filter, 
-                                            value.sub,
-                                            value.chartTitle,
-                                            value.title
-                                        )
-                                    }/>
-                                {
-                                    subMenuItems && subMenuItems.length > 0 ?
+                    <Segment inverted color='purple' inline>
+                        <Grid>
+                            <Grid.Column streched width={16}>
+                                <Grid.Row>
                                     <Dropdown
+                                        text={filterTitle}
                                         icon='filter'
                                         floating
                                         labeled
                                         button
-                                        options={subMenuItems}
+                                        options={menu}
                                         className='icon'
                                         onChange={(e, { value }) => 
                                             handleItemClick(
@@ -109,20 +93,42 @@ export default withAuthSync(withRouter((props) => {
                                                 value.chartTitle,
                                                 value.title
                                             )
-                                        }/> : null
-                                }
-                                <Segment inverted style={{
-                                        float: 'right'
+                                        }/>
+                                    {
+                                        subMenuItems && subMenuItems.length > 0 ?
+                                        <Dropdown
+                                            icon='filter'
+                                            floating
+                                            labeled
+                                            button
+                                            options={subMenuItems}
+                                            className='icon'
+                                            onChange={(e, { value }) => 
+                                                handleItemClick(
+                                                    value.filter, 
+                                                    value.sub,
+                                                    value.chartTitle,
+                                                    value.title
+                                                )
+                                            }/> : null
+                                    }
+                                    <Segment inverted style={{
+                                        'textAlign': 'center'
                                     }}>
-                                    <p>{chartTitle}</p>
-                                </Segment>
-                                <FilterPie data={data}/>
-                                <Segment inverted>
-                                    <p>Fuente: examen radiológico, fase III Dx, FOUSAC</p>
-                                </Segment>
-                            </Segment>
-                        </Grid.Column> 
-                    </Grid>
+                                        <p>{chartTitle}</p>
+                                    </Segment>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <FilterPie data={data}/>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Segment inverted>
+                                        <p>Fuente: examen radiológico, fase III Dx, FOUSAC</p>
+                                    </Segment>
+                                </Grid.Row>
+                            </Grid.Column> 
+                        </Grid>
+                    </Segment>
                 </Grid.Column>
                 <Grid.Column width={2}/>
             </Grid>

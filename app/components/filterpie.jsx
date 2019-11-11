@@ -4,19 +4,30 @@ import {
   Pie, 
   Legend, 
   Tooltip, 
-  ResponsiveContainer
+  ResponsiveContainer,
+  Cell
 } from 'recharts'
+import {
+  COLORS
+} from '../configuration/options'
 
 export default props => (
-  <div style={{ width: '100%', height: 500 }}>
+  <div style={{ width: '100%', height: 500 , padding: "0 0 0 15%"}}>
     <ResponsiveContainer>
       <PieChart>
         <Pie 
           dataKey="value" 
           isAnimationActive={true} 
           data={props.data} 
-          fill="#8884d8"
-          label/>
+          label>
+          {
+            props.data.map((entry, index) => (
+              <Cell 
+                key={index}
+                fill={COLORS[index % COLORS.length]}/>
+            ))
+          }
+        </Pie>
         <Legend 
           verticalAlign="bottom"
           layout="vertical"

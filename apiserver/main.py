@@ -343,10 +343,50 @@ def filter_injury(type, filter):
 	print(type)
 	print(query)
 
-	print(query.all())
+	qresults = query.all()
+
+	print(qresults)
+
+	if filter and filter == 'age':
+		default_age = {
+			'MENOR DE 20': 0,
+			'20-30': 0,
+			'31-40': 0,
+			'41-50': 0,
+			'51-60': 0,
+			'61-70': 0,
+			'71-80': 0,
+			'MAS DE 80': 0
+		}
+
+		for result in qresults:
+			percentil = result[0]
+			data = result[1]
+
+			if percentil < 20:
+				default_age['MENOR DE 20'] += data
+			elif percentil < 31:
+				default_age['20-30'] += data
+			elif percentil < 41:
+				default_age['31-40'] += data
+			elif percentil < 51:
+				default_age['41-50'] += data
+			elif percentil < 61:
+				default_age['51-60'] += data
+			elif percentil < 71:
+				default_age['61-70'] += data
+			elif percentil < 81:
+				default_age['71-80'] += data
+			else:
+				default_age['MAS DE 80'] += data
+
+		qresults = [
+			(k,v)
+			for k,v in default_age.items()
+		]
 
 	results = []
-	for result in query.all():
+	for result in qresults:
 		filter_name = filter_mapper.get(filter)
 
 		if isinstance(filter_name, dict):
