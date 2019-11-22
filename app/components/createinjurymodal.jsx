@@ -23,7 +23,6 @@ const DEFAULT_INIT_STATE = {
     'modalOpen': false,
     'locations': [{ ...DEFAULT_LOCATION }],
     'tooths': [],
-    'op5_type': null,
     'error': null
 }
 
@@ -81,7 +80,7 @@ export default class CreateInjuryModal extends Component {
         console.log('handleChange')
         console.log(`${name} ${value} ${checked}`)
         if (value === undefined && checked !== undefined) {
-            value = checked;
+            value = checked
         }
 
         if (name === 'op4' && value === 'Asociada') {
@@ -220,6 +219,14 @@ export default class CreateInjuryModal extends Component {
     }
 
     handleSubmit(){
+        const tmp_locations = this.state.locations
+
+        if (tmp_locations && tmp_locations.length < 2 && tmp_locations[0] === DEFAULT_LOCATION){
+            this.setState('locations', [])
+        }
+
+        console.log(this.state)
+
         fetch('http://127.0.0.1:5000/injury', {
                 method: 'POST',
                 headers: new Headers({
@@ -233,7 +240,7 @@ export default class CreateInjuryModal extends Component {
                 this.handleClose()
             })
             .catch((error) => {
-                this.setState({ error });
+                this.setState({ error })
             })
     }
 
@@ -418,14 +425,12 @@ export default class CreateInjuryModal extends Component {
                         </Form.Group>
                         <Form.Group inline>
                             <Form.Field
-                                required 
                                 control={Select} 
                                 label='Forma' 
                                 name='form'
                                 options={FORM}
                                 onChange={this.handleChange}/>
                             <Form.Field
-                                required 
                                 control={Select} 
                                 label='Bordes' 
                                 name='op3'
@@ -438,14 +443,12 @@ export default class CreateInjuryModal extends Component {
                                     key={'location' + index}
                                     inline>
                                     <Form.Field
-                                        required 
                                         control={Select}  
                                         name={index}
                                         label='Localización'
                                         options={LOCATION(index)}
                                         onChange={this.handleLocationChange}/>
-                                    <Form.Field
-                                        required 
+                                    <Form.Field 
                                         control={Select}  
                                         name={index}
                                         label='Posición'
@@ -516,7 +519,6 @@ export default class CreateInjuryModal extends Component {
                                 step='0.1'
                                 onChange={this.handleChange}/>
                             <Form.Field
-                                required 
                                 control={Input} 
                                 label='Diametro' 
                                 name='size_2'

@@ -69,8 +69,8 @@ def get_injuries():
 @app.route('/injury', methods=['POST'])
 def create_injury():
 	data = request.get_json()
-	location_data = data['locations']
-	tooth_data = data['tooths']
+	location_data = data.get('locations', [])
+	tooth_data = data.get('tooths', [])
 
 	injury = m.Injury(**{ 
 		k: data[k] 
