@@ -19,15 +19,15 @@ const Main = props => {
 	const [injuries, setInjuries] = useState([])
 	const [error, setError] = useState(null)
 
-	useEffect(() => {
-		getInjuries()
-	}, [injuries])
-
 	const getInjuries = () => fetch('http://127.0.0.1:5000/injury')
 		.then(response => response.json())
 		.then(data => {
 			setInjuries(data)
 		})
+
+	useEffect(() => {
+		getInjuries()
+	}, [injuries])
 
 	const deleteInjury = id => fetch(
 			`http://127.0.0.1:5000/injury/${id}`,
@@ -133,7 +133,7 @@ const Main = props => {
 										null 
 								}
 								<Grid.Row>
-									<Grid.Column width={10}/>
+									<Grid.Column width={10} />
 									<CreateInjuryModal callback={getInjuries}/>
 									<Button onClick={onLogout}> Cerrar Sesion </Button>
 								</Grid.Row>

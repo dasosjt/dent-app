@@ -23,7 +23,30 @@ const DEFAULT_INIT_STATE = {
     'modalOpen': false,
     'locations': [{ ...DEFAULT_LOCATION }],
     'tooths': [],
-    'error': null
+    'error': null,
+    'name': null,
+    'lastname': null,
+    'register': null,
+    'register_num': null,
+    'gender': null,
+    'age': null,
+    '_type': null,
+    'op1': null,
+    'op2': null,
+    'form': null,
+    'op3': null,
+    'size_0': null,
+    'size_1': null,
+    'size_2': null,
+    'op4': null,
+    'op5': null,
+    'op5_type': null,
+    'op6': null,
+    'op7': null,
+    'op8': null,
+    'dif1': null,
+    'dif2': null,
+    'dif3': null,
 }
 
 export default class CreateInjuryModal extends Component {
@@ -69,6 +92,7 @@ export default class CreateInjuryModal extends Component {
     }
 
     handleOpen(){
+        this.setState({...DEFAULT_INIT_STATE})
         this.setState({ 'modalOpen': true })
     }
 
@@ -218,7 +242,11 @@ export default class CreateInjuryModal extends Component {
         this.removeToothByIndex(index)
     }
 
-    handleSubmit(){
+    handleSubmit(e){
+        console.log("******************")
+        console.log(e)
+        console.log("******************")
+        e.target.reset()
         const tmp_locations = this.state.locations
 
         if (tmp_locations && tmp_locations.length < 2 && tmp_locations[0] === DEFAULT_LOCATION){

@@ -61,7 +61,7 @@ def login():
 def get_injuries():
 	injuries = [
 		injury.as_dict() 
-		for injury in g.s.query(m.Injury).all()[:10]
+		for injury in g.s.query(m.Injury).order_by(m.Injury.injury_id.desc()).all()[:10]
 	]
 
 	return jsonify(injuries)
