@@ -403,10 +403,16 @@ def filter_injury(type, filter):
 
 	for index, result in enumerate(results):
 		print(result)
-		results[index]['name'] = '{}      %{}'.format(
-			result['name'],
-			round((result['value']/total)*100, 2)
-		)
+		if total:
+			results[index]['name'] = '{}      %{}'.format(
+				result['name'],
+				round((result['value']/total)*100, 2)
+			)
+		else:
+			results[index]['name'] = '{}      %{}'.format(
+				result['name'],
+				0
+			)
 	print(results)
 
 	return jsonify(results)

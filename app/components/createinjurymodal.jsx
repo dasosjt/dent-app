@@ -93,6 +93,7 @@ export default class CreateInjuryModal extends Component {
 
     handleOpen(){
         this.setState({...DEFAULT_INIT_STATE})
+        this.setState({ 'locations': [{ ...DEFAULT_LOCATION }] })
         this.setState({ 'modalOpen': true })
     }
 
