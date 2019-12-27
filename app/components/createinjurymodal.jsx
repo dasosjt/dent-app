@@ -491,6 +491,7 @@ export default class CreateInjuryModal extends Component {
                                                 label='Rama'
                                                 name={index}
                                                 options={MANDIBULA_BRANCH(index)}
+                                                defaultValue={MANDIBULA_BRANCH(index)[0].value}
                                                 onChange={this.handleBranchChange}/> : null
                                     }
 
@@ -519,6 +520,7 @@ export default class CreateInjuryModal extends Component {
                                                 label='Pared'
                                                 name={index}
                                                 options={SINUS_MAXILAR_WALL(index)}
+                                                defaultValue={SINUS_MAXILAR_WALL(index)[0].value}
                                                 onChange={this.handleWallChange}/> : null
                                     }
 

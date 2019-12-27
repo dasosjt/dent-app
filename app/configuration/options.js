@@ -186,6 +186,7 @@ export const POSITION = index => [
 ]
 
 export const MANDIBULA_BRANCH = index => [
+    { key: 'null' + index, text: 'No aplica', value: 'None' },
     { key: 'rama' + index, text: 'Rama Mandibular', value: 'Rama Mandibular' },
     { key: 'con' + index, text: 'Cóndilo Mandibular', value: 'Cóndilo Mandibular' },
     { key: 'apo' + index, text: 'Apófisis Coronoides', value: 'Apófisis Coronoides' }
@@ -198,6 +199,7 @@ export const OP5_TYPE = [
 ]
 
 export const SINUS_MAXILAR_WALL = index => [
+    { key: 'null' + index, text: 'No aplica', value: 'None' },
     { key: 'ant' + index, text: 'Pared Anterior', value: 'Pared Anterior' },
     { key: 'post' + index, text: 'Pared Posterior', value: 'Pared Posterior' },
     { key: 'techo' + index, text: 'Techo', value: 'Techo' },
@@ -205,6 +207,11 @@ export const SINUS_MAXILAR_WALL = index => [
 ]
 
 export const MENUITEMS = currentType => [
+    {
+        title: 'Tipo de Lesión',
+        filter: '_type',
+        chartTitle: `Prevalencia de lesiones ${currentType} según tipo`,
+    },
     {
         title: 'Edad',
         filter: 'age',
