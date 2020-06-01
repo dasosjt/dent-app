@@ -2,10 +2,10 @@ export const DEFAULT_LOCATION = {
     'location': '',
     'position': '',
     '_type': '',
-    'branch_mandibula': null,
+    'branch_mandibula': '',
     'body_mandibula': false,
     'sinus_maxilar': false,
-    'sinus_maxilar_wall': null
+    'sinus_maxilar_wall': ''
 }
 
 export const DEFAULT_TOOTH = {
@@ -186,7 +186,7 @@ export const POSITION = index => [
 ]
 
 export const MANDIBULA_BRANCH = index => [
-    { key: 'null' + index, text: 'No aplica', value: 'None' },
+    { key: 'null' + index, text: 'No aplica', value: '' },
     { key: 'rama' + index, text: 'Rama Mandibular', value: 'Rama Mandibular' },
     { key: 'con' + index, text: 'Cóndilo Mandibular', value: 'Cóndilo Mandibular' },
     { key: 'apo' + index, text: 'Apófisis Coronoides', value: 'Apófisis Coronoides' }
@@ -199,7 +199,7 @@ export const OP5_TYPE = [
 ]
 
 export const SINUS_MAXILAR_WALL = index => [
-    { key: 'null' + index, text: 'No aplica', value: 'None' },
+    { key: 'null' + index, text: 'No aplica', value: '' },
     { key: 'ant' + index, text: 'Pared Anterior', value: 'Pared Anterior' },
     { key: 'post' + index, text: 'Pared Posterior', value: 'Pared Posterior' },
     { key: 'techo' + index, text: 'Techo', value: 'Techo' },

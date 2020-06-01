@@ -76,7 +76,7 @@ export default withAuthSync(withRouter((props) => {
                 <Grid.Column width={12}>
                     <Segment inverted color='purple' inline>
                         <Grid>
-                            <Grid.Column streched width={16}>
+                            <Grid.Column width={16}>
                                 <Grid.Row>
                                     <Dropdown
                                         text={filterTitle}
