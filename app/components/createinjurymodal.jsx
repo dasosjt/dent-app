@@ -32,7 +32,7 @@ const DEFAULT_INIT_STATE = {
     'age': null,
     '_type': null,
     'op1': null,
-    'op2': null,
+    'op2': "No aplica",
     'form': null,
     'op3': null,
     'size_0': null,
@@ -42,7 +42,7 @@ const DEFAULT_INIT_STATE = {
     'op5': null,
     'op5_type': null,
     'op6': null,
-    'op7': null,
+    'op7': "No aplica",
     'op8': null,
     'dif1': null,
     'dif2': null,
@@ -438,7 +438,7 @@ export default class CreateInjuryModal extends Component {
                                 checked={this.state.op1 === 'Múltiple'}
                                 onChange={this.handleChange}/>
                         </Form.Group>
-                        <Form.Group inline>
+                        <Form.Group inline required>
                             <Form.Radio
                                 label='Unilocular'
                                 name='op2'
@@ -450,6 +450,12 @@ export default class CreateInjuryModal extends Component {
                                 name='op2'
                                 value='Multilocular'
                                 checked={this.state.op2 === 'Multilocular'}
+                                onChange={this.handleChange}/>
+                            <Form.Radio
+                                label='No aplica'
+                                name='op2'
+                                value='No aplica'
+                                checked={this.state.op2 === 'No aplica'}
                                 onChange={this.handleChange}/>
                         </Form.Group>
                         <Form.Group inline>
@@ -666,7 +672,7 @@ export default class CreateInjuryModal extends Component {
                                 )
                             ) : null
                         }
-                        <Form.Group inline>
+                        <Form.Group inline required>
                             <Form.Radio
                                 label='Con Expansión de Corticales'
                                 name='op7'

@@ -35,8 +35,7 @@ const FilterPie = props => {
           align="right"
           wrapperStyle={{
               paddingLeft: "15px"
-          }}
-          content={renderLegend}/>
+          }}/>
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>

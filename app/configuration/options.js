@@ -415,6 +415,21 @@ export const MENUITEMS = currentType => [
         ]
     },
     {
+        title: 'Eje Mayor',
+        filter: 'size_0',
+        chartTitle: `Prevalencia de lesiones ${currentType} según eje mayor`,
+    },
+    {
+        title: 'Eje Menor',
+        filter: 'size_1',
+        chartTitle: `Prevalencia de lesiones ${currentType} según eje menor`,
+    },
+    {
+        title: 'Diametro',
+        filter: 'size_2',
+        chartTitle: `Prevalencia de lesiones ${currentType} según diametro`,
+    },
+    {
         title: 'Asociada',
         filter: 'op4',
         chartTitle: `Prevalencia de lesiones ${currentType} asociadas a piezas dentales`,
